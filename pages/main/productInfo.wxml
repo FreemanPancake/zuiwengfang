@@ -1,23 +1,20 @@
 <!--pages/main/productInfo.wxml-->
+<import src="../../module/Dialog.wxml" />
 <view class="goods-detail-content">
-  <swiper style="height:{{imageWidth}}px" indicator-dots="{{indicatorDots}}"
-  autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-    <block  wx:for="{{imgUrls}}">
+  <swiper style="height:{{imageWidth}}px" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+    <block wx:for="{{imgUrls}}">
       <swiper-item>
-        <image style='width:{{imageWidth}}px;height:{{imageWidth}}px;display:block'  src="{{item}}" />
+        <image style='width:{{imageWidth}}px;height:{{imageWidth}}px;display:block' src="{{item}}" />
       </swiper-item>
     </block>
   </swiper>
   <view class='goods-desc-box'>
-      <text>{{productInfo.categoryName+productInfo.name+productInfo.collectionYear}}年珍藏好品质{{productInfo.volume}}/{{productInfo.alcoholPercision}}度{{productInfo.promotionName}}</text>
-      
+    <text>{{productInfo.categoryName+productInfo.name+productInfo.collectionYear}}年珍藏好品质{{productInfo.volume}}/{{productInfo.alcoholPercision}}度{{productInfo.promotionName}}</text>
   </view>
 
 
-
-
   <view class='goods-label-box'>
-    <view class='goods-lable-content'  bindtap='showHide'>
+    <view class='goods-lable-content' bindtap='showHide'>
       <text class='label-title'>促销</text>
       <view class="sale-label-box">
         <text class='sale-label'>限购</text>
@@ -33,7 +30,7 @@
         <view class='hidden-item-desc'>购买不超过20件时享受优惠，超出数量我们不知道到底会怎么样</view>
       </view>
       <view class='goods-lable-hidde-item'>
-        <view >
+        <view>
           <view class='hidden-item-title'>满减</view>
         </view>
         <view class='hidden-item-desc'>精美茶具工艺壶 西施壶 德化陶瓷砂壶约180M</view>
@@ -44,43 +41,114 @@
     <view class='goods-lable-content'>
       <text class='label-title'>已选</text>
       <view class="purchase-label-box">
-        <text >荷花酒</text>
-        <text >窖藏</text>
-        <text >10年</text>
-        <text >两箱</text>
+        <text>荷花酒</text>
+        <text>窖藏</text>
+        <text>10年</text>
+        <text>两箱</text>
       </view>
       <view class='navigator-arrow'></view>
     </view>
     <view class='goods-lable-hidde'>
     </view>
   </view>
-  
+
   <view class='goods-label-box'>
     <view class='goods-lable-content'>
-      <text class='label-title'>金窖酒业自营店</text> 
+      <text class='label-title'>金窖酒业自营店</text>
     </view>
   </view>
- <!-- <view class='goods-detail-box'>
+  <!-- <view class='goods-detail-box'>
     <view class='detail-hover'>商品介绍</view>
     <view>规格参数</view>
     <view>售后保障</view>
  </view> -->
 
- <view class='space-content'>
- </view>
- <view class='bottom-btn-box'>
-      <view class='car-box'>
-        <view class='car-image-box'>
-          <image src='../../resource/image/car2.png'>
-             <text class='goods-num'>{{shoppingcarNumber}}</text>
-          </image>
-         
-        </view>
-        <text class='car-text'>购物车</text>
-      
+  <view class='space-content'>
+  </view>
+  <view class='bottom-btn-box'>
+    <view class='car-box'>
+      <view class='car-image-box'>
+        <image src='../../resource/image/car2.png'>
+          <text class='goods-num'>{{shoppingcarNumber}}</text>
+        </image>
+
       </view>
-      <view class='empty'></view>
-      <view class='car-add-box' bindtap='addToCar'>加入购物车</view>
-      <view class='goods-buy-box'>立即购买</view>
- </view>
+      <text class='car-text'>购物车</text>
+
+    </view>
+    <view class='empty'></view>
+    <view class='car-add-box' bindtap='addToCar'>加入购物车</view>
+    <view class='goods-buy-box'>立即购买</view>
+  </view>
+</view>
+
+
+<view class="dialog {{ showDialog ? 'dialog_show' : '' }}">
+  <view class="dialog_mask" bindtap="onClickdiaView" />
+  <view class="dialog_container">
+
+    <view class="dialog-view" style="height:1000rpx">
+      <view class='title'>
+        <view style='flex:0.2'>
+          <image src='../../resource/image/logo.png' class='logo' />
+        </view>
+        <view>金窖酒业</view>
+        <view style='text-align:right'>
+          <image src='../../resource/image/cancle.png' class='cancle-icon' />
+        </view>
+      </view>
+      <view>
+
+        <view class='wine-info'>
+          <view style='flex:0.3'>
+            <image src='http://www.koyo527.me/wine/{{productInfo.photoUrl}}'></image>
+          </view>
+          <view style='flex:0.7;margin-left:24rpx;'>
+            <text style='width:100%'>{{productInfo.categoryName+productInfo.name+productInfo.collectionYear}}年珍藏好品质</text>
+            <view class='right'>
+              <text style='color:orangered;margin:12rpx 0;'>￥{{productInfo.price}}</text>
+              <text>请选择规格属性</text>
+            </view>
+          </view>
+        </view>
+
+        <view style='margin-booton:24rpx;'>类型:</view>
+        <view style='height:24rpx;clear:both' />
+        <view wx:for="{{categoryList}}" wx:for-index='index'>
+          <view class="{{item.cateChoosed?'cate-view-press':'cate-view-normal'}}" bindtap='chooseCate' data-index='{{index}}' style='font-size:32rpx;'>{{item.name}}</view>
+        </view>
+
+        <view style='height:24rpx;clear:both' />
+        <view style='clear:both'>套餐:</view>
+        <view style='height:24rpx;clear:both' />
+        <view wx:for="{{mealList}}" wx:for-index='index'>
+          <view class="{{item.mealChoosed?'cate-view-press':'cate-view-normal'}}" bindtap='chooseMeal' data-index='{{index}}' style='margin-bottom:12rpx;font-size:32rpx;'>{{item.name}}</view>
+        </view>
+      </view>
+
+      <view style='height:12rpx;clear:both' />
+      <view style='clear:both'>数量:</view>
+      <view style='height:24rpx;clear:both' />
+      <view class='edit-view'>
+        <view class='img'>
+          <image src='../../resource/image/sub_black.png' style='width:42rpx;height:42rpx;' disabled='false' bindtap='subs'/>
+        </view>
+        <view>
+          <input value='{{wineNumber}}' bindblur='editNumber' />
+        </view>
+        <view class='img'>
+          <image src='../../resource/image/add_black.png' style='width:42rpx;height:42rpx;' disabled='true' bindtap='add'/>
+        </view>
+        <text class='text-free'>剩余989件</text>
+      </view>
+      <view style='height:24rpx;clear:both' />
+    </view>
+
+    <view class='bootom-view' style='background:{{bgColor}};color:{{tvColor}}'>
+      确定
+    </view>
+
+
+
+  </view>
 </view>
