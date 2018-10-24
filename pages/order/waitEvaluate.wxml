@@ -1,0 +1,74 @@
+<!--pages/order/waitEvaluate.wxml-->
+<view>
+  <scroll-view scroll-y="true" class="scoll-h">
+    <block wx:for="{{orderList}}" wx:key="*this">
+      <view class="item-ans">
+        <view class="expertInfo">
+          <view class="weui-flex">
+            <view>
+              <view class="placeholder">
+                <image src='../../resource/image/logo.png' class='logo' />
+              </view>
+            </view>
+            <view class="weui-flex__item">
+              <view class="placeholder">金窖酒业</view>
+            </view>
+            <view>
+              <view class="placeholder red-text">交易成功</view>
+            </view>
+          </view>
+
+          <view wx:for='{{item.infoData}}' wx:for-item="info">
+            <view class="weui-flex inside-item">
+              <view>
+                <view class="placeholder">
+                  <image src='http://66.112.218.52/wine/{{info.wineData.photoUrl}}' class='item-img' />
+                </view>
+              </view>
+              <view class="weui-flex__item">
+                <view class="placeholder">
+                  <view class="weui-flex__item">
+                    <view class="placeholder descript">
+                      {{info.wineData.address}} {{info.wineData.categoryName}} {{info.wineData.name}} {{info.wineData.collectionYear}}陈酿
+                    </view>
+                  </view>
+                  <view class='red-text th'>七天退货</view>
+                </view>
+              </view>
+              <view>
+                <view class="placeholder">
+                  <view class='price'>￥{{info.wineData.price}}</view>
+                  <view class='number'>x{{info.number}}</view>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class="statistics">共{{item.number}}件商品 合计：￥
+            <text style='font-size:38rpx'>898</text>.00</view>
+
+          <view class="weui-flex item-circle__text">
+            <view class="weui-flex__item">
+              <view class="placeholder"></view>
+            </view>
+            <view class="weui-flex__item" bindtap='deleteOrder' data-id="{{item.id}}">
+              <view class="placeholder">
+                <text>删除订单</text>
+              </view>
+            </view>
+            <view class="weui-flex__item">
+              <view class="placeholder">
+                <text>查看物流</text>
+              </view>
+            </view>
+            <view class="weui-flex__item">
+              <view class="placeholder">
+                <text>立即评价</text>
+              </view>
+            </view>
+          </view>
+
+        </view>
+      </view>
+    </block>
+  </scroll-view>
+</view>

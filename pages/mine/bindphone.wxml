@@ -1,0 +1,48 @@
+<!--pages/mine/bindphone.wxml-->
+<view class='page'>
+    <view class='page__hd'>
+     <view class="weui-cells text-page">
+      <view class="weui-flex">
+        <view>
+          <view class="placeholder">
+            <text class='red-star'>*</text>
+            <text class='weui-cell__bd phone-text'>手机号 ：</text>
+          </view>
+        </view>
+        <view class="weui-flex__item">
+          <view class="placeholder">
+            <input placeholder='请输入手机号'   bindinput="phoneInput"/>
+          </view>
+        </view>
+        <view>
+          <view class="placeholder ">
+          <button class='code-view' bindtap="getCode" disabled='{{disabled}}' >{{codeText}}</button>  
+          </view>
+        </view>
+      </view>
+
+       <view class="weui-flex verify-view">
+        <view>
+          <view class="placeholder">
+            <text class='red-star'>*</text>
+            <text class='phone-text'>验证码 ：</text>
+          </view>
+        </view>
+        <view class="weui-flex__item">
+          <view class="placeholder">
+            <input placeholder='请输入验证码' />
+          </view>
+        </view>
+        <view>
+          <view class="placeholder">
+          <text class='check-code'>验证码不正确</text>
+          </view>
+        </view>
+      </view>
+
+    </view>
+  </view>
+  </view>
+<button bindtap="bindPhone" type='primary'class="bind-button">
+  绑定
+</button>

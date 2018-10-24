@@ -1,0 +1,59 @@
+/* pages/mine/bindphone.wxss */
+@import '../../resource/weixin/weui.wxss';
+
+.page {
+  background-color: white;
+  height: 100%;
+}
+
+.text-page {
+  padding-top: 48rpx;
+  padding-bottom: 48rpx;
+  padding-right: 24rpx;
+}
+
+.placeholder text {
+  font-size: 38rpx;
+}
+
+.red-star {
+  color: red;
+  margin-left: 24rpx;
+  font-size: 32rpx;
+}
+
+.phone-text {
+  margin-right: 12rpx;
+  color: black;
+  font-size: 28rpx;
+}
+
+.code-view {
+  height:52rpx;
+  width: 168rpx;
+  font-size: 24rpx;
+  line-height: 52rpx;
+  padding-left: 24rpx;
+  padding-right: 24rpx;
+  background: #0ba252;
+  color: #FFFFFF
+}
+
+
+
+.verify-view {
+  margin-top: 32rpx;
+}
+
+.check-code {
+  color: red;
+  display: none;
+}
+
+.bind-button {
+  width: 60%;
+  height: 86rpx;
+  margin-top: 32rpx;
+  line-height: 86rpx;
+  font-size: 32rpx;
+}

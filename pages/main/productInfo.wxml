@@ -1,0 +1,86 @@
+<!--pages/main/productInfo.wxml-->
+<view class="goods-detail-content">
+  <swiper style="height:{{imageWidth}}px" indicator-dots="{{indicatorDots}}"
+  autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+    <block  wx:for="{{imgUrls}}">
+      <swiper-item>
+        <image style='width:{{imageWidth}}px;height:{{imageWidth}}px;display:block'  src="{{item}}" />
+      </swiper-item>
+    </block>
+  </swiper>
+  <view class='goods-desc-box'>
+      <text>{{productInfo.categoryName+productInfo.name+productInfo.collectionYear}}年珍藏好品质{{productInfo.volume}}/{{productInfo.alcoholPercision}}度{{productInfo.promotionName}}</text>
+      
+  </view>
+
+
+
+
+  <view class='goods-label-box'>
+    <view class='goods-lable-content'  bindtap='showHide'>
+      <text class='label-title'>促销</text>
+      <view class="sale-label-box">
+        <text class='sale-label'>限购</text>
+        <text class='sale-label'>多买优惠</text>
+      </view>
+      <view class='navigator-arrow'></view>
+    </view>
+    <view class="goods-lable-hidde {{show ? 'goods-lable-show' : ''}}">
+      <view class='goods-lable-hidde-item'>
+        <view>
+          <view class='hidden-item-title'>限购</view>
+        </view>
+        <view class='hidden-item-desc'>购买不超过20件时享受优惠，超出数量我们不知道到底会怎么样</view>
+      </view>
+      <view class='goods-lable-hidde-item'>
+        <view >
+          <view class='hidden-item-title'>满减</view>
+        </view>
+        <view class='hidden-item-desc'>精美茶具工艺壶 西施壶 德化陶瓷砂壶约180M</view>
+      </view>
+    </view>
+  </view>
+  <view class='goods-label-box'>
+    <view class='goods-lable-content'>
+      <text class='label-title'>已选</text>
+      <view class="purchase-label-box">
+        <text >荷花酒</text>
+        <text >窖藏</text>
+        <text >10年</text>
+        <text >两箱</text>
+      </view>
+      <view class='navigator-arrow'></view>
+    </view>
+    <view class='goods-lable-hidde'>
+    </view>
+  </view>
+  
+  <view class='goods-label-box'>
+    <view class='goods-lable-content'>
+      <text class='label-title'>金窖酒业自营店</text> 
+    </view>
+  </view>
+ <!-- <view class='goods-detail-box'>
+    <view class='detail-hover'>商品介绍</view>
+    <view>规格参数</view>
+    <view>售后保障</view>
+ </view> -->
+
+ <view class='space-content'>
+ </view>
+ <view class='bottom-btn-box'>
+      <view class='car-box'>
+        <view class='car-image-box'>
+          <image src='../../resource/image/car2.png'>
+             <text class='goods-num'>{{shoppingcarNumber}}</text>
+          </image>
+         
+        </view>
+        <text class='car-text'>购物车</text>
+      
+      </view>
+      <view class='empty'></view>
+      <view class='car-add-box' bindtap='addToCar'>加入购物车</view>
+      <view class='goods-buy-box'>立即购买</view>
+ </view>
+</view>

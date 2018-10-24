@@ -1,0 +1,110 @@
+<view class="weui-search-bar " style='width:100%;background:{{searchBarBackground}};z-index:999999999;border:0;position:fixed;top:0'>
+  <view class="weui-search-bar__form" style='background:{{searchInputBackground}}'>
+    <view class="weui-search-bar__box">
+      <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+      <input type="text" class="weui-search-bar__input" placeholder="搜索" />
+    </view>
+  </view>
+</view>
+<view style='height:86rpx;'>
+</view>
+<view style='width:100%;padding-bottom:12rpx;background:#EEE;'>
+  <view class="page">
+    <swiper class="swiper_box" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" indicator-dots="true" indicator-color="grey" interval="{{interval}}" indicator-active-color="black" circular="true">
+      <block wx:for="{{imgUrls}}" wx:key="*this">
+        <swiper-item>
+          <image src="http://66.112.218.52/wine/img/advertise/{{item.photoUrl}}" bindtap='turnout' data-category="{{item.category}}"></image>
+          <view style='position:absolute;bottom:40%;color:white;left:20%'>{{item.content}}</view>
+          <view style='position:absolute;right:48rpx;bottom:52rpx;background:white;color:red;text-align:center;padding:8rpx 16rpx'>
+            全场{{item.category}}折
+          </view>
+          <view style='position:absolute;left:48rpx;top:52rpx;background:#f60;color:white;text-align:center;padding:8rpx 24rpx'>
+            {{item.title}}
+          </view>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+</view>
+
+<view class='weui-flex' wx:for='{{menuData}}' wx:key='index' style='float:left;width:20%;margin-top:32rpx;'>
+  <view class='weui-flex__ite choice'>
+    <view style='width:100%;'>
+      <image src='{{item.url}}' class='choose-image'></image>
+    </view>
+    <text>{{item.title}}</text>
+  </view>
+</view>
+
+
+<view class='weui-flex' wx:for='{{menuData}}' wx:key='index' style='float:left;width:20%;margin-top:12rpx;'>
+  <view class='weui-flex__ite choice'>
+    <view style='width:100%;'>
+      <image src='{{item.url}}' class='choose-image'></image>
+    </view>
+    <text>{{item.title}}</text>
+  </view>
+</view>
+
+<view class='item-menu' style=' height:320rpx;background:white;border-top-left-radius: 32rpx;border-top-right-radius: 32rpx;margin-top:-12rpx;'>
+</view>
+<view style='width:100%;padding:32rpx;'>
+  <view style='width:12%;font-size:38rpx;font-weight:800;float:left;color:grey'>
+    今日头条
+  </view>
+  <view style='width:80%;float:left'>
+    <view class="page">
+      <view>
+        <swiper class="jrtt_swiper_box" autoplay="true" circular="true" interval="4500">
+          <block wx:for="{{imgUrls}}" wx:key='index'>
+            <swiper-item>
+              <view style='position:absolute;width:100%;background:white'>
+                <view style='width:80%;height:100%;float:left'>
+                  <view style='font-size:28rpx;font-weight:800;padding-top:12rpx;padding-left:12rpx;'>
+                    {{item.title}}--全场{{item.category}}折
+                  </view>
+                  <view style='color:grey;margin-top:24rpx;margin-left:12rpx;font-size:22rpx'>{{item.content}}</view>
+                </view>
+                <view style='width:20%;height:100%;float:left'>
+                  <image style='width:92rpx;height:92rpx;margin:12rpx;' src="http://66.112.218.52/wine/img/advertise/{{item.photoUrl}}"></image>
+                </view>
+              </view>
+            </swiper-item>
+          </block>
+        </swiper>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view style='width:100%;position:absolute;margin-top:128rpx'>
+  <block wx:for='{{categoryData}}' wx:key='index'>
+    <view class='goods-box' bindtap='productInfo' data-id='{{item.id}}'>
+      <view style='background:white;font-size:38rpx;font-weight:800;'>{{item.categoryName}}
+        <view>
+          <view bindtap="goodsDetail" class='goods-item'>
+            <view class='goods-image'>
+              <image src='http://66.112.218.52/wine/{{item.photoUrl}}'></image>
+            </view>
+            <view class='goods-detail'>
+              <view class='goods-title'>
+                {{item.name}}
+              </view>
+              <view class='goods-prices'>
+                <text class="goods-prices-now">{{item.price}}</text>
+                <text class='goods-prices-old'>￥2560</text>
+              </view>
+              <view class='goods-stock'>
+                <text>已售45</text>
+                <progress class='goods-stock-progress' percent="45" stroke-width="10" color='#ec7476' backgroundColor="#ebebeb" />
+              </view>
+              <view class='goods-btn'>
+                <button size='mini'>立即抢购</button>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>

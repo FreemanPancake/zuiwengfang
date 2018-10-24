@@ -1,0 +1,38 @@
+<!--pages/mine/userInfo.wxml-->
+<view class='page'>
+  <view class='page__bd'>
+
+    <view class='userInfo'>
+      <image class='img' src='{{userInfo.avatarUrl}}' />
+      <text class='name-text'>{{userInfo.nickName}}</text>
+    </view>
+    <view class='empty'>
+    </view>
+    <view class="weui-cells list">
+      <a url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="bindPhone">
+        <view class="weui-cell__bd">绑定手机号</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">189****2032</view>
+      </a>
+      <a url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="addressManage">
+        <view class="weui-cell__bd">收货地址管理</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </a>
+      <a url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="selectAddress">
+        <view class="weui-cell__bd">金窖会员</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">
+          <text class='vip'>升级vip</text>
+        </view>
+      </a>
+      <a url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="selectAddress">
+        <view class="weui-cell__bd">实名认证</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">
+          <text class='real-name'>立即实名认证领取88元大礼包</text>
+        </view>
+      </a>
+      <!-- <a url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="logout">
+        <view class="weui-cell__bd">退出登录</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </a> -->
+    </view>
+  </view>
+</view>

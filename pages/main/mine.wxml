@@ -1,0 +1,74 @@
+<view class='top-page'>
+  <view class='top'>
+    <view class='tip_user' bindtap='userInfo'>
+      <text>账号设置</text>
+      <image src='../../resource/image/setting.png'></image>
+    </view>
+
+    <view class='middle'>
+      <image src='{{userInfo.avatarUrl}}' class='image_user'> </image>
+      <view class='middle_content'>
+        <view class='username'>
+          <text>用户名：</text>
+          <text>{{userInfo.nickName}}</text>
+        </view>
+        <view class='vip'>
+          <text>升级vip</text>
+        </view>
+      </view>
+    </view>
+
+
+    <scroll-view class="scroll-view">
+      <view class="scrolltxt">
+        <view class="marquee_box">
+          <view class="marquee_text" style="transform: translateX(-{{marqueeDistance}}px)">
+            <text>{{text}}</text>
+            <text style="margin-right:{{marquee_margin}}px;"></text>
+            <text style="margin-right:{{marquee_margin}}px;">{{text}}</text>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>
+
+<view class='page'>
+  <a class="weui-cell weui-cell_access" hover-class="weui-cell_active" style="border-bottom:0.5rpx #ddd solid" bindtap="allOrder">
+    <view class="weui-cell__bd">
+      <p>我的订单</p>
+    </view>
+    <view class="weui-cell__ft weui-cell__ft_in-access" style='font-size:24rpx'>查看全部订单</view>
+  </a>
+  <view class="sale-view" style='float:left;padding-top:24rpx;' wx:for="{{dataSale}}">
+    <view class='sale_item' bindtap='saleItemClick' data-index="{{item.index}}">
+      <image src='{{item.url}}' />
+      <text>{{item.title}}</text>
+    </view>
+  </view>
+</view>
+<view style='height:148rpx;'></view>
+<view class='page-bottom'>
+  <view class="weui-cell__bd">
+    <p>必备工具</p>
+  </view>
+</view>
+<view style='margin-left:24rpx;margin-right:24rpx;'>
+  <view class="tool-view" style='float:left;padding-top:24rpx;padding-bottom:24rpx;border-bottom:0.5rpx #DDD solid' wx:for="{{dataTool}}">
+    <view class='tool_item'>
+      <image src='{{item.url}}' />
+      <text>{{item.title}}</text>
+    </view>
+  </view>
+
+</view>
+
+<view style='margin-left:24rpx;margin-right:24rpx;'>
+  <view class="tool-view" style='float:left;padding-top:24rpx;padding-bottom:24rpx;border-bottom:0.5rpx #DDD solid' wx:for="{{otherData}}">
+    <view class='tool_item'>
+      <image src='{{item.url}}' />
+      <text>{{item.title}}</text>
+    </view>
+  </view>
+
+</view>

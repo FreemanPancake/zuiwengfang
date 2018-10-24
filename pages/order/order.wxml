@@ -1,0 +1,140 @@
+<!--pages/order/order.wxml-->
+<view class='top-line'>
+</view>
+ <scroll-view scroll-y="true"  scroll-y="true"  style="height:{{scrollViewHeight}}rpx;">
+<view class="weui-flex top-tip__view" hidden='{{confirmAddressShowhow}}'>
+  <view class="weui-flex__item">
+    <view class="placeholder" style='color:white'>为保证订单准确到达，请确认收货地址是否在({{addressObj.eare}})</view>
+  </view>
+  <view>
+    <view class="placeholder change-address" bindtap='chooseAddress'>更改</view>
+  </view>
+  <view bindtap='confirmAddress'>
+    <view class="placeholder confirm-address">确认</view>
+  </view>
+</view>
+
+<view class='address-view' bindtap='chooseAddress'>
+  <view class='inside-view'>
+    <view class="weui-flex">
+      <view class="weui-flex__item">
+        <view class="placeholder">
+          <view class='address-name-phone'>
+            <text>{{addressObj.username}}</text>
+            <text>{{addressObj.phone}}</text>
+          </view>
+          <text>{{addressObj.province}} {{addressObj.city}} {{addressObj.eare}}
+          {{addressObj.addressInfo}}</text>
+        </view>
+      </view>
+      <view>
+        <view class="placeholder">
+          <image src='../../resource/image/open.png' class='open-view'></image>
+        </view>
+      </view>
+    </view>
+  </view>
+  <image src='../../resource/image/address_line.png' class='line-view'></image>
+</view>
+
+<!-- wineList -->
+<view class='orderlist-view'>
+  <view class='shopname-view'>金窖酒业</view>
+  <block wx:for="{{orderList}}">
+    <view class='weui-flex item-view'>
+      <view>
+        <view class="placeholder">
+          <image src='http://66.112.218.52/wine/{{item.photo_url}}' class='left-img' />
+        </view>
+      </view>
+      <view class="weui-flex__item">
+        <view class="placeholder">
+          <view class='title-view'>{{item.address}}{{space}}{{item.name}}{{space}}{{item.category_name}}{{space}}{{item.collection_year}}年珍藏{{item.alcohol_percision}}度{{item.volume}}</view>
+          <view class='price-number__view'>
+            <text class='price-view'>￥{{item.price}}/{{item.unit}}</text>
+            <text class='number-view'>数量：{{item.number}}</text>
+          </view>
+          <view class='act-view'>
+            <image src='../../resource/image/activity_middle.png' />
+            <text>{{item.promotion_name}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>
+
+
+<view class="weui-cells">
+  <a url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="callContact">
+    <view class="weui-cell__bd">配送服务</view>
+    <view class="weui-cell__ft weui-cell__ft_in-access">申通快递</view>
+  </a>
+  <a url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="callContact">
+    <view class="weui-cell__bd" style='width:108rpx;'>备注</view>
+    <view class="weui-cell__ft" style='width:80%'>
+      <view class='weui-flex'>
+        <view class="weui-flex__item">
+          <view class="placeholder">
+            <input placeholder='选填，给商户留言' class='input-comment' bindblur='getInput'/>
+          </view>
+        </view>
+        <view>
+          <view class="placeholder">
+            <text class='accounter'>0/50</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </a>
+
+</view>
+
+<view class="weui-cells">
+  <a url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="callContact">
+    <view class="weui-cell__bd">发票信息</view>
+    <view class="weui-cell__ft weui-cell__ft_in-access">个人（普通发票）商品明细</view>
+  </a>
+  <a class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="callContact">
+    <view class="weui-cell__bd">优惠券</view>
+    <view class="weui-cell__ft weui-cell__ft_in-access">满100减9元</view>
+  </a>
+</view>
+<view class="weui-cells">
+  <a class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="callContact">
+    <view class="weui-cell__bd">商品金额</view>
+    <view class="weui-cell__ft red-sum">￥{{sum}}</view>
+  </a>
+  <a class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="callContact">
+    <view class="weui-cell__bd">运费</view>
+    <view class="weui-cell__ft">免邮</view>
+  </a>
+  <a class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="callContact">
+    <view class="weui-cell__bd">共计金额：</view>
+    <view class="weui-cell__ft red-sum">￥{{totalSum}}</view>
+  </a>
+
+</view>
+</scroll-view>
+
+<view class='bottom-view'>
+  <button bindtap="wechatPay" type='primary' class='wechat-pay'>
+    微信支付
+  </button>
+  <view class="weui-flex bottom-button-view">
+    <view class="weui-flex__item">
+      <view class="placeholder">
+        <button bindtap="payAndGetWine" type='default' class='pay-get_wine'>
+          货到付款
+        </button>
+      </view>
+    </view>
+    <view>
+      <view class="placeholder">
+        <button bindtap="logout" type='default' class='intro-button'>
+          详情
+        </button>
+      </view>
+    </view>
+  </view>
+</view>

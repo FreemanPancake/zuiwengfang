@@ -1,0 +1,75 @@
+<!--pages/mine/addAddress.wxml-->
+<view class='top-line'>
+</view>
+<view class='page'>
+  <view class='page__hd'>
+
+    <div class="weui-flex item-view" > 
+      <div class="left-view">
+        <div class="placeholder">收货人</div>
+      </div>
+      <div class="weui-flex__item">
+        <div class="placeholder">
+          <input placeholder='你输入收货人姓名'  bindblur='getName'/>
+        </div>
+      </div>
+    </div>
+    <div class="weui-flex item-view">
+      <div class="left-view">
+        <div class="placeholder">联系方式</div>
+      </div>
+      <div class="weui-flex__item">
+        <div class="placeholder">
+          <input placeholder='输入收获人手机号' bindblur='getPhone' type='number' />
+        </div>
+      </div>
+    </div>
+
+    <div class="weui-flex item-view" bindtap="chooseProvince">
+      <div class="left-view">
+        <div class="placeholder">所在地区</div>
+      </div>
+      <div class="weui-flex__item">
+        <div class="placeholder">
+          <text>{{chooseAddress}}</text>
+        </div>
+      </div>
+    </div>
+
+    <div class="weui-flex item-view">
+      <div class="left-view">
+        <div class="placeholder">详细地址</div>
+      </div>
+      <div class="weui-flex__item">
+        <div class="placeholder">
+          <input placeholder='详细地址需要填写写字楼或房间号' bindblur='getAddressDetail'/>
+        </div>
+      </div>
+    </div>
+
+    <div class="weui-flex item-view_end">
+      <div class="left-view">
+        <div class="placeholder">地址标签</div>
+      </div>
+      <div class="weui-flex__item">
+        <div class="placeholder">
+         <view wx:for='{{signList}}'>
+          <view class="{{item.choose?'item-sign_choose':'item-sign'}}" bindlongtap='deleteSign' bindtap='chooseSign'data-index="{{index}}">{{item.name}}</view>
+         </view>
+         <image src='../../resource/image/add.png' class='sign-add' hidden='{{signAddShow}}' bindtap='addSign'/>
+        </div>
+      </div>
+    </div>
+  </view>
+</view>
+
+<button bindtap="confirm" class='confirm-button'>
+  确认
+</button>
+
+
+<modal title="自定义地址标签" confirm-text="确认" cancel-text="取消" hidden="{{onOff}}" bindconfirm="modalConfirm" bindcancel="modalCancel">
+<view class='model-view'>
+<input bindblur='getCustomSign' placeholder='标签最大长度为六个字' class='model-input'/>
+</view>
+</modal>

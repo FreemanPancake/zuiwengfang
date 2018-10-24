@@ -1,0 +1,311 @@
+/* pages/main/shoppingCar.wxss */
+@import '../../resource/weixin/weui.wxss';
+
+.page {
+  width: 100%;
+  margin-bottom: 144rpx;
+}
+
+.empty_car {
+  border-radius: 50%;
+  background: orange;
+  width: 168rpx;
+  height: 168rpx;
+}
+
+.edit-product-view {
+  width: 100%;
+  background: white;
+  padding: 24rpx;
+  border-top: 1rpx solid #eee;
+}
+
+.cache-list {
+  width: 100%;
+  background: #eee;
+}
+
+.title_view {
+  width: 100%;
+  height: 68rpx;
+  background: white;
+  border-bottom: 0.5rpx solid #eee;
+  padding: 12rpx 0;
+}
+
+.title_text {
+  float: left;
+  font-size: 42rpx;
+  font-weight: 400;
+  color: black;
+}
+
+.check_box {
+  float: left;
+  line-height: 168rpx;
+}
+
+.item_right {
+  height: 200rpx;
+  float: left;
+  background: white;
+  padding: 24rpx 0;
+  padding-left: 24rpx;
+}
+
+.item_img {
+  width: 226rpx;
+  height: 186rpx;
+  float: left;
+  margin-right: 24rpx;
+}
+
+.text_view {
+  width: 52%;
+  float: left;
+}
+
+.descript {
+  font-size: 32rpx;
+  color: black;
+}
+
+.bottom_view {
+  width: 100%;
+  height: 68rpx;
+  background: white;
+}
+
+.price {
+  font-size: 32rpx;
+  color: orangered;
+}
+
+.edit_view {
+  width: 50%;
+  height: 80%;
+  margin-right: 24rpx;
+  float: right;
+}
+
+.edit_mini {
+  background: #eee;
+  text-align: center;
+  line-height: 78rpx;
+}
+
+.edit_input {
+  background: #eee;
+  margin-left: 1rpx;
+  margin-right: 1rpx;
+  text-align: center;
+}
+
+.edit_add {
+  background: #eee;
+  text-align: center;
+  line-height: 78rpx;
+}
+
+.car_tip {
+  text-align: center;
+  font-size: 28rpx;
+  color: grey;
+  margin-top: 32rpx;
+  margin-bottom: 68rpx;
+}
+
+.line_left {
+  width: 30%;
+  height: 1rpx;
+  background: #ddd;
+  float: left;
+  margin-right: -3rpx;
+  margin-top: 4rpx;
+}
+
+.ranctangle {
+  width: 18rpx;
+  height: 18rpx;
+  float: left;
+  margin-top: -5rpx;
+  /* font-size:24rpx; 
+  color: #DDD;
+
+  */
+}
+
+.line_right {
+  width: 30%;
+  height: 1rpx;
+  background: #ddd;
+  float: left;
+  margin-left: -3rpx;
+  margin-top: 4rpx;
+}
+
+.recomment_page {
+  width: 100%;
+  padding: 24rpx;
+}
+
+.recomment_view {
+  background: white;
+  width: 50%;
+  float: left;
+  text-align: center;
+  padding-top: 32rpx;
+  padding-bottom: 32rpx;
+}
+
+.recomment_view image {
+  width: 286rpx;
+  height: 228rpx;
+}
+
+.btn_car {
+  width: 186rpx;
+  height: 100%;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  background: #d85e26;
+  color: white;
+}
+
+.button-hover {
+  background: red;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  color: white;
+}
+
+.footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  z-index: 99999;
+  line-height: 98rpx;
+  background: white;
+}
+
+/*复选按钮*/
+
+checkbox .wx-checkbox-input {
+  margin-left: 24rpx;
+  border-radius: 50%; /* 圆角*/
+  width: 40rpx; /* 背景的宽 */
+  height: 40rpx; /* 背景的高 */
+  float: left;
+}
+
+/* 选中后的 背景样式*/
+
+checkbox .wx-checkbox-input.wx-checkbox-input-checked {
+  border: 0.5rpx #d85e26 solid;
+  background: #d85e26;
+  float: left;
+}
+
+/* 选中后的 对勾样式  */
+
+checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
+  border-radius: 50%; /* 圆角 */
+  width: 40rpx; /* 选中后对勾大小，不要超过背景的尺寸 */
+  height: 40rpx; /* 选中后对勾大小，不要超过背景的尺寸 */
+  line-height: 40rpx;
+  text-align: center;
+  font-size: 30rpx; /* 对勾大小 30rpx */
+  color: #fff; /* 对勾颜色 白色 */
+  background: transparent;
+  transform: translate(-50%, -50%) scale(1);
+  -webkit-transform: translate(-50%, -50%) scale(1);
+}
+
+.choice-text {
+  float: left;
+  height: 100%;
+  color: black;
+  font-size: 32rpx;
+  margin-right: 32rpx;
+}
+
+.view_heji text {
+  font-size: 32rpx;
+  color: black;
+}
+
+.post-way {
+  float: right;
+  text-align: right;
+  font-size: 18rpx;
+  color: #ddd;
+  margin-right: 32rpx;
+}
+
+.recommend {
+  padding: 48rpx;
+  text-align: center;
+  background: white;
+  font-size: 38rpx;
+  margin-bottom: 92rpx;
+}
+
+.recommend image {
+  width: 24rpx;
+  height: 24rpx;
+}
+
+.collect {
+  width: 40%;
+  margin-right: 5%;
+  float: left;
+}
+
+.btn_collect {
+  width: 168rpx;
+  height: 68rpx;
+  line-height: 69rpx;
+  font-size: 28rpx;
+  background: white;
+  border: 0.5rpx #eee solid;
+  text-align: center;
+}
+
+.collect .button-hover {
+  width: 168rpx;
+  height: 68rpx;
+  line-height: 69rpx;
+  font-size: 28rpx;
+  background: #eee;
+  border-radius: 8rpx;
+  border: 1rpx #eee solid;
+  color: black;
+}
+
+.deletee {
+  width: 40%;
+  margin-right: 5%;
+  float: left;
+}
+
+.btn_delete {
+  border: 1rpx #eee solid;
+  background: red;
+  width: 168rpx;
+  height: 68rpx;
+  line-height: 69rpx;
+  font-size: 28rpx;
+  text-align: center;
+  color: white;
+}
+
+.delete .button-hover {
+  width: 168rpx;
+  height: 68rpx;
+  line-height: 69rpx;
+  font-size: 28rpx;
+  background: #eee;
+  border-radius: 1rpx #eee solid;
+  border: 1rpx #eee solid;
+  color: black;
+}

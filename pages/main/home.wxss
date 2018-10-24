@@ -1,0 +1,127 @@
+/* pages/main/home.wxss */
+@import '../../resource/weixin/weui.wxss';
+
+.search-view { 
+  width: 100%;
+  height: 108rpx;
+  background: #eee;
+  position: fixed;
+  top: 0;
+  z-index: 999999999;
+}
+
+.search-input-background {
+  background: #fff;
+}
+
+.swiper-item {
+  width: 100%;
+  display: block;
+  height: 150px;
+}
+
+.swiper_box {
+  height: 400rpx;
+  width: 100%;
+}
+
+swiper-item image {
+  height: 100%;
+  width: 100%;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.menu {
+  width: 100%;
+}
+
+.choice {
+  width: 100%;
+  text-align: center;
+}
+
+.choose-image {
+  width: 68rpx;
+  height: 68rpx;
+  text-align: center;
+}
+
+.jrtt_swiper_box {
+  height: 200rpx;
+  width: 100%;
+}
+
+/*分类商品数据*/
+
+.goods-box {
+  margin-top: 20rpx;
+  width: 94%;
+  background-color: #fff;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 10rpx;
+}
+
+.goods-box .goods-item {
+  padding: 12rpx;
+  display: flex;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1rpx solid #f6f6f6;
+  border-bottom: 15rpx solid #f3f3f3;
+}
+
+.goods-box .goods-item .goods-image image {
+  width: 220rpx;
+  height: 220rpx;
+  background-color: red;
+  display: block;
+}
+
+.goods-detail {
+  margin-left: 20rpx;
+  font-size: 30rpx;
+}
+
+.goods-detail .goods-title {
+  color: #333;
+  line-height: 40rpx;
+  height: 80rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  display: box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+}
+
+.goods-prices-now {
+  color: #e4393c;
+}
+
+.goods-prices-old {
+  font-size: 26rpx;
+  color: #999;
+  margin-left: 30rpx;
+  text-decoration: line-through;
+}
+
+.goods-stock {
+  color: #666;
+  display: flex;
+  font-size: 22rpx;
+}
+
+.goods-stock-progress {
+  width: 200rpx;
+  margin-left: 20rpx;
+  border-radius: 20rpx;
+}
+
+.goods-btn button {
+  margin-top: 10rpx;
+  background-color: #f46467;
+  color: #fff;
+}

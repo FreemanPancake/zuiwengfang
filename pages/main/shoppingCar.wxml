@@ -1,0 +1,141 @@
+<!--pages/main/shoppingCar.wxml-->
+<view class='page'>
+  <!-- 如果缓存中没有数据则显示提示信息 -->
+  <view wx:if='{{!hasCache}}'>
+    <view style='text-align:center;width:100%;margin-top:68rpx;'>
+      <image class='empty_car'  src='../../resource/image/add_to_car.png'></image>
+    </view>
+    <view class='car_tip'>购物车空空如也，去逛逛吧~</view>
+  </view>
+
+  <view wx:else>
+     <view class='weui-flex edit-product-view'>
+     <view class='weui-flex__item'>
+     <image src='../../resource/image/edit_product.png' style='width:32rpx;height:32rpx;float:left'/>
+     <view style='color:grey;margin-left:12rpx;float:left;'>收藏或删除商品</view>
+     </view>
+    <view class='placeholder' style='color:red;width:100rpx;' bindtap='editProduct' hidden='{{!editProduct}}'>
+     完成
+     </view>
+     <view class='placeholder' style='color:red;width:160rpx;' bindtap='editProduct' hidden='{{editProduct}}'>
+     编辑商品
+     </view>
+     </view> 
+    <view class="cache-list" wx:for='{{shoppingCarList}}'>
+      <view style='width:100%;height:24rpx;background:#EEE'>
+      </view>
+      <view class='title_view'>
+        <label bindtap='categoryChoice' style='float:left;line-height:60rpx;'>
+          <checkbox value="category" checked='{{!simplechoice}}'>
+          </checkbox>
+        </label>
+        <view class='title_text'>
+          {{item.category_name}}
+          <text style='color:grey;font-size:24rpx;'>(描述)</text>
+        </view>
+      </view>
+      <view class='item_right'>
+        <view bindtap='productInfo' data-item='{{item}}'>
+        <image class='item_img' src='http://66.112.218.52/wine/{{item.photo_url}}' />
+        <view class='text_view'>
+          <view class="descript">
+            {{item.name+item.collection_year}}年珍藏好品质{{item.volume}}/{{item.alcohol_percision}}度{{item.promotion_name}}
+          </view>
+        </view>
+        </view>
+      </view>
+      <view class='weui-flex bottom_view'>
+        <view class='weui-flex__item' style='text-align:right'>
+          <view class='price'>
+            <text style='font-size:24rpx;'>￥</text>{{item.price}}
+          </view>
+        </view>
+        <view class='weui-flex__item'>
+          <view style='width:50%;'>
+          </view>
+          <view class='weui-flex edit_view'>
+            <view class='weui-flex__item edit_mini' bindtap='subtraction' data-item='{{item}}'>
+              <image src='../../resource/image/mini.png' style='width:42rpx;height:42rpx;line-height:80rpx;' />
+            </view>
+            <view class='weui-flex__item edit_input'>
+              <input type='number' style='width:100%;height:100%;' value='{{item.number}}' data-item='{{item}}' bindblur='getInput' />
+            </view>
+            <view class='weui-flex__item edit_add' bindtap='add' data-item='{{item}}'>
+              <image src='../../resource/image/add.png' style='width:42rpx;height:42rpx;line-height:80rpx;' />
+            </view>
+          </view>
+        </view>
+
+      </view>
+      <!-- <view style='width:100%;height:252rpx;background:#EEE'>
+      </view> -->
+    </view>
+  </view>
+
+  <!-- 提示文字 -->
+  <view style='width:100%;height:52rpx'></view>
+  <view style='width:100%;height:12rpx;line-height: 12rpx;margin-left:6%;clear:left;padding-bottom:24rpx;'>
+    <view class='line_left'></view>
+    <!-- <view class='ranctangle'>♦</view> -->
+    <image class='ranctangle' src='../../resource/image/diamond.png'></image>
+    <text style='float:left;font-size:38rpx;'>你可能喜欢</text>
+    <image class='ranctangle' src='../../resource/image/diamond.png'></image>
+    <!-- <view class='ranctangle'>♦</view> -->
+    <view class='line_right'></view>
+</view>
+
+ <view class='recomment_page'>
+  <view  wx:for='{{recommendData}}'>
+  <view class='recomment_view'>
+  <image src='http://66.112.218.52/wine/{{item.photoUrl}}'></image>
+  <view style='width:100%'>{{item.name}}</view>
+  </view>
+  </view>
+  <view style='width:100%;height:298rpx;'></view>
+</view>
+ </view>
+ 
+
+
+
+
+<view hidden='{{editProduct}}'>
+<view class='weui-flex footer' hidden='{{!hasCache}}'>
+  <view class='weui-flex__item' style='border-top:#DDD 0.5rpx solid;'>
+    <label class='all-choice' bindtap='allChoice'>
+      <checkbox value="all-choice" checked='{{isAllChoice}}' style='float:left'></checkbox>
+      <view class='choice-text'>全选</view>
+    </label>
+    <view class='view_heji' style='height:100%;'>
+      <text>合计:</text>
+      <text style='color:orangered'>{{sum}}</text>
+      <text class='post-way'>免邮</text>
+    </view>
+  </view>
+  <view class='placeholder' bindtap='order'>
+    <button class='btn_car'>
+      结算
+    </button>
+  </view>
+</view>
+</view>
+
+<view hidden='{{!editProduct}}'>
+<view class='weui-flex footer' hidden='{{!hasCache}}' style='border-top:#DDD 0.5rpx solid;'>
+  <view class='weui-flex__item'>
+    <label class='all-choice' bindtap='allEdit'>
+      <checkbox value="all-choice" checked='{{isAllEdit}}' style='float:left'></checkbox>
+      <view class='choice-text'>全选</view>
+    </label>
+  </view>
+  <view class='weui-flex__item' style="margin:20rpx;">
+  <view class='collect'>
+  <button class='btn_collect'>搜藏</button>
+  </view>
+  <view class='delete' bindtap='deleteCache'>
+  <button class='btn_delete'>删除</button>
+  </view>
+  </view>
+</view>
+</view>
+

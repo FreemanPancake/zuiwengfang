@@ -1,0 +1,140 @@
+/* pages/order/orderList.wxss */
+@import '../../resource/weixin/weui.wxss';
+/*隐藏滚动条*/
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
+.tab-h {
+  height: 80rpx;
+  width: 100%;
+  background: #FFFFFF;
+  box-sizing: border-box;
+  overflow: hidden;
+  line-height: 80rpx;
+  font-size: 16px;
+  white-space: nowrap;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  padding-left: 8rpx; 
+}
+
+.tab-item {
+  margin-right: 24rpx;
+  display: inline-block;
+}
+.tab-item{
+  width: 126rpx;
+  text-align: center;
+}
+.tab-item.active {
+  color: #ff6600;
+  position: relative;
+}
+
+.tab-item.active:after {
+  content: "";
+  display: block;
+  height: 4rpx;
+  width: 126rpx;
+  background: #ff6600;
+  position: absolute;
+  bottom: 0;
+  border-radius: 16rpx;
+}
+
+.item-ans {
+  width: 100%;
+  background-color: #FFFFFF;
+  display: flex;
+  flex-grow: row no-wrap;
+  justify-content: space-between;
+  padding: 24rpx;
+  margin-bottom: 24rpx;
+  box-sizing: border-box;
+  align-items: center;
+  border-radius:4%; 
+}
+
+.expertInfo {
+  font-size: 12px;
+  flex-grow: 2;
+  color: #b0b0b0;
+  line-height: 1.5em;
+}
+.logo{
+  width: 36rpx;
+  height: 36rpx;
+  margin-right: 24rpx;
+}
+.inside-item{
+  margin-top:24rpx;
+}
+.item-img{
+  width: 168rpx;
+  height: 168rpx;
+  margin-right:48rpx;
+}
+.descript{
+   text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  align-content: center;
+    color: black
+}
+.red-text{
+  color: orangered;
+}
+.th{
+  margin-top:24rpx;
+}
+.price{
+  color: black
+}
+.number{
+  color: black
+}
+
+.expertInfo .name {
+  font-size: 16px;
+  color: #000;
+  margin-bottom: 6px;
+}
+
+
+.tab-content {
+  margin-top: 104rpx;
+  margin-left:24rpx;
+  margin-right:24rpx;
+}
+
+.scoll-h {
+  height: 100%;
+}
+
+.statistics{
+  text-align: right;
+    color: black;
+}
+.item-circle__text{
+  margin-top:24rpx;
+}
+.item-circle__text weui-flex__item{
+  text-align: right;
+}
+.item-circle__text text{
+  font-size: 24rpx;
+  border: 1rpx grey solid;
+  color: grey;
+  border-radius: 200rpx;
+  padding:8rpx 24rpx;
+  margin-top: 32rpx;
+}
+

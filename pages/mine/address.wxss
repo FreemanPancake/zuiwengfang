@@ -1,0 +1,81 @@
+/* pages/mine/address.wxss */
+@import '../../resource/weixin/weui.wxss';
+.top-line {
+  height: 1rpx;
+  width: 100%;
+  border-bottom: 1rpx #ddd solid;
+}
+.address-view {
+  padding-left: 24rpx;
+  padding-right: 24rpx;
+  padding-bottom: 24rpx;
+  background-color: #fff;
+}
+
+.left-view {
+  margin-top: 32rpx;
+}
+
+.circle-text {
+  width: 58rpx;
+  height: 58rpx;
+  line-height: 58rpx;
+  text-align: center;
+  background: #ccc;
+  border-radius: 100%;
+  color: white;
+  font-size: 36rpx;
+  padding: 12rpx;
+}
+
+.address-middle-view {
+  margin-left: 24rpx;
+}
+
+.name-text {
+  color: black;
+  font-size: 32rpx;
+  margin-right: 24rpx;
+}
+
+.phone-text {
+  color: #ccc;
+  font-size: 24rpx;
+  line-height: 58rpx;
+}
+
+.detail-address text {
+  float: left;
+  color: black;
+  margin-right: 16rpx;
+}
+
+.line-grey {
+  width: 1rpx;
+  height: 86rpx;
+  margin-top: 32rpx;
+  border-left: 1rpx #ccc solid;
+}
+
+.right-view {
+  height: 86rpx;
+  line-height: 156rpx;
+  padding-left: 24rpx;
+}
+
+.edit-view {
+  color: #ccc;
+}
+
+.add-button {
+  width: 48rpx;
+  height: 48rpx;
+  left: 42%;
+  padding: 28rpx;
+  background-color: #ccc;
+  position: fixed;
+  bottom: 20px;
+  border: 0 solid #fff;
+  border-radius: 500px;
+  box-shadow: 4px 1px 1px #ddd;
+}

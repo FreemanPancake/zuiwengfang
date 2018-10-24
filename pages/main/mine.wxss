@@ -1,0 +1,187 @@
+/**index.wxss**/
+@import '../../resource/weixin/weui.wxss';
+
+.top-page {
+  width: 100%;
+  background: white;
+  padding: 24rpx;
+}
+
+.top {
+  width: 88%;
+  height: 280rpx;
+  background: linear-gradient(to right, red, orange, orangered);
+  border-radius: 24rpx;
+  padding: 3%;
+}
+
+.tip_user {
+  width: 100%;
+  margin: 24rxp;
+}
+
+.tip_user image {
+  width: 36rpx;
+  height: 36rpx;
+  float: right;
+}
+
+.tip_user text {
+  font-size: 28rpx;
+  color: black;
+  float: right;
+  margin-left: 12rpx;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.middle {
+  width: 100%;
+  margin-top: 32rpx;
+}
+
+.image_user {
+  width: 128rpx;
+  height: 128rpx;
+  border-radius: 50%;
+  float: left;
+}
+
+.middle_content {
+  float: left;
+  margin-left: 32rpx;
+  margin-top: 12rpx;
+}
+
+.middle_content .username {
+  color: white;
+}
+
+.vip {
+  width: 148rpx;
+  background: purple;
+  border-radius: 32rpx;
+  padding: 2rpx 4rpx;
+  text-align: center;
+  font-size: 24rpx;
+  color: white;
+  margin-top: 12rpx;
+}
+
+.scroll-view {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.scrolltxt {
+  padding: 0 20rpx;
+  margin: 24rpx 0;
+}
+
+.marquee_box {
+  position: relative;
+  color: white;
+  height: 90rpx;
+  display: block;
+  overflow: hidden;
+}
+
+.marquee_text {
+  white-space: nowrap;
+  position: absolute;
+  top: 0;
+  font-size: 14px;
+  height: 90rpx;
+  line-height: 90rpx;
+}
+
+
+
+
+
+
+
+
+
+
+.userinfo {
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.page {
+  background: white;
+  margin: 24rpx;
+}
+
+.sale-view {
+  background: white;
+  width: 20%;
+  padding-bottom: 24rpx;
+}
+
+.sale_item {
+  text-align: center;
+}
+
+.sale_item image {
+  width: 68rpx;
+  height: 68rpx;
+  text-align: center;
+  margin-left: 32rpx;
+  margin-right: 32rpx;
+}
+
+.sale_item text {
+  font-size: 22rpx;
+  color: black;
+  text-align: center;
+}
+
+.page-bottom {
+  background: white;
+  margin-left: 24rpx;
+  margin-right: 24rpx;
+  margin-top: 24rpx;
+  padding: 24rpx;
+  border-bottom: 0.5rpx #ddd solid;
+}
+
+.tool-view {
+  background: white;
+  text-align: center;
+  width: 25%;
+}
+
+.tool_item {
+  text-align: center;
+}
+
+.tool_item image {
+  width: 68rpx;
+  height: 68rpx;
+  text-align: center;
+  margin-left: 48rpx;
+  margin-right: 68rpx;
+}
+
+.tool_item text {
+  font-size: 22rpx;
+  color: black;
+  text-align: center;
+}

@@ -1,0 +1,61 @@
+{
+  "pages": [
+    "pages/welcom/authorization",
+    "pages/main/home",
+    "pages/main/categroy",
+    "pages/main/shoppingCar",
+    "pages/main/mine",
+    "pages/main/search",
+    "pages/main/productInfo",
+    "pages/mine/userInfo",
+    "pages/mine/address",
+    "pages/mine/bindphone",
+    "pages/mine/addAddress",
+     "libs/citySelector/switchcity/switchcity",
+    "pages/order/order",
+    "pages/order/waitPay",
+    "pages/order/waitSend",
+    "pages/order/waitCarry",
+    "pages/order/waitEvaluate",
+    "pages/order/orderList"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "醉翁坊",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#666",
+    "selectedColor": "grey",
+    "backgroundColor": "#FFF",
+    "borderStyle": "f60",
+    "list": [
+      {
+        "selectedIconPath": "resource/image/home_normal.png",
+        "iconPath": "resource/image/home_impress.png",
+        "pagePath": "pages/main/home",
+        "text": "首页"
+      },
+      {
+        "selectedIconPath": "resource/image/categroy_normal.png",
+        "iconPath": "resource/image/categroy_impress.png",
+        "pagePath": "pages/main/categroy",
+        "text": "分类"
+      },
+      {
+        "selectedIconPath": "resource/image/buycar_normal.png",
+        "iconPath": "resource/image/buycar_impress.png",
+        "pagePath": "pages/main/shoppingCar",
+        "text": "购物车"
+      },
+      {
+        "selectedIconPath": "resource/image/mine_normal.png",
+        "iconPath": "resource/image/mine_impress.png",
+        "pagePath": "pages/main/mine",
+        "text": "我的"
+      }
+    ],
+    "position": "bottom"
+  }
+}

@@ -1,0 +1,187 @@
+/* pages/order/order.wxss */
+@import '../../resource/weixin/weui.wxss';
+
+.top-line {
+  height: 1rpx;
+  width: 100%;
+  border-bottom: 1prx #ddd solid;
+}
+
+.top-tip__view {
+  background: orange;
+  padding: 24rpx;
+  border: 1rpx orangered solid;
+}
+
+.change-address {
+  color: white;
+  margin-top: 24rpx;
+  margin-bottom: 24rpx;
+  margin-left: 24rpx;
+}
+
+.confirm-address {
+  color: white;
+  border-radius: 8%;
+  padding: 4rpx 24rpx;
+  border: 1rpx orangered solid;
+  margin: 24rpx;
+}
+
+/*隐藏滚动条*/
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+.address-view {
+  background: white;
+}
+.inside-view{
+  padding-left:24rpx;
+  padding-right:24rpx;
+  padding-top:24rpx
+}
+
+.line-view {
+  width: 100%;
+  height: 8rpx;
+  background: white;
+}
+
+.address-name-phone text {
+  font-size: 38rpx;
+  font-weight: bolder;
+  color: black;
+  margin-right: 24rpx;
+}
+
+.open-view {
+  width: 38rpx;
+  height: 38rpx;
+  margin-top: 48rpx;
+}
+
+.orderlist-view {
+  background: #fff;
+  padding-bottom: 32rpx;
+  margin-top:12rpx;
+}
+
+.shopname-view {
+  font-size: 42rpx;
+  color: black;
+  font-weight: 400;
+  padding: 24rpx;
+  border-bottom: 1rpx #ddd solid;
+}
+
+.item-view {
+  padding-top: 24rpx;
+  padding-bottom: 24rpx;
+  margin-left: 24rpx;
+  margin-right: 24rpx;
+  border-bottom: 1rpx #ddd solid;
+}
+
+.left-img {
+  width: 196rpx;
+  height: 206rpx;
+  margin-right: 24rpx;
+}
+
+.title-view {
+  font-size: 32rpx;
+  font-weight: bolder;
+  color: black;
+}
+
+.price-number__view {
+  width: 100%;
+  margin-top:12rpx;
+}
+
+.price-view {
+  width: 48%;
+  float: left;
+  text-align: left;
+  color: orangered;
+}
+
+.number-view {
+  width: 48%;
+  float: left;
+  text-align: right;
+}
+
+.act-view{
+  clear: both;
+  width: 100%;
+  padding-top: 18rpx;
+}
+.act-view image{
+  width: 6%;
+  height: 36rpx;
+  float: left
+}
+
+.act-view text{
+  width: 89%;
+   float: left;
+   text-align: right;
+
+}
+
+
+.accounter {
+  font-size: 20rpx;
+  text-align: right;
+  margin-top: 42rpx;
+  color: grey;
+}
+
+
+
+.red-sum {
+  color: orangered;
+}
+
+.bottom-view {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  padding-top: 24rpx;
+  background: #fff;
+  padding-bottom: 24rpx;
+}
+
+.wechat-pay {
+  width: 92%;
+  margin-left: 4%;
+  margin-right: 4%;
+  font-size: 28rpx;
+  line-height: 86rpx;
+}
+
+.bottom-button-view {
+  margin-top: 24rpx;
+  margin-left: 4%;
+  margin-right: 4%;
+}
+
+.pay-get_wine {
+  margin-right: 8rpx;
+  height: 86rpx;
+  font-size: 28rpx;
+  line-height: 86rpx;
+}
+
+.intro-button {
+  height: 86rpx;
+  font-size: 28rpx;
+  line-height: 86rpx;
+}
+.input-comment{
+  text-align:right;
+  margin-right:24rpx;
+}

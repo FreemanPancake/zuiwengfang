@@ -1,0 +1,45 @@
+<!--pages/main/categroy.wxml-->
+<!--主盒子-->
+<view class='page'>
+  <view class='search-view'>
+    <view class="weui-search-bar" style='background:#eee;'>
+      <view class="weui-search-bar__form">
+        <view class="weui-search-bar__box">
+          <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+          <input type="text" class="weui-search-bar__input" placeholder="搜索" disabled='false' />
+        </view>
+      </view>
+    </view>
+  </view>
+  <view id='categroy-div'>
+    <!--分类导航栏-->
+    <scroll-view class='left-navbar' scroll-y="true">
+      <view wx:for="{{navLeftItems}}" class="{{ curIndex == index ? 'active' : '' }}" wx:key="unique" bindtap="switchRightTab" data-id="{{item.id}}" data-index="{{index}}">{{item.name}}
+      </view>
+    </scroll-view>
+
+
+    <scroll-view id="right" scroll-y="true" scroll-top="{{scrollTop}}">
+      <view class='nav-right' wx:for='{{navRightItems}}'>
+        <view class='weui-flex nav-item-top' bindtap='productionInfo' data-id='{{item.id}}'>
+          <view class='weui-flex__item'>
+          <image class='nav-img' src='http://66.112.218.52/wine/{{item.photoUrl}}'></image>
+          </view>
+          <view class='weui-flex__item'>
+          <view style='100%;margin:12rpx;'>{{item.categoryName+item.name+item.collectionYear}}年珍藏好品质{{item.volume}}/{{item.alcoholPercision}}度{{item.promotionName}}</view>
+          </view>
+        </view>
+        <view class='weui-flex'>
+          <view class='weui-flex__item' style='text-align:center'>8096条评价</view>
+          <view class='weui-flex__item' style='text-align:center'>12398人浏览</view>
+          <view class='weui-flex__item' style='text-align:right;margin-right:24rpx;'>
+            <image src='../../resource/image/add_to_car.png' style='width:36rpx;height:36rpx;' bindtap='addToCar' data-item='{{item}}'></image>
+          </view>
+        </view>
+        <view class='grey-line'>
+        </view>
+      </view>
+    </scroll-view>
+
+  </view>
+</view>

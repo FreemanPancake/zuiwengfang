@@ -1,0 +1,41 @@
+<!--pages/mine/address.wxml-->
+<view class='top-line'>
+</view>
+<view class='page'>
+  <view class='page__bd'>
+   <block wx:for='{{addressList}}' >
+      <view class="weui-flex address-view" bindtap='chooseAddress' data-item = '{{item}}'>
+        <view class='left-view'>
+          <view class="placeholder circle-text">{{item.firstName}}</view>
+        </view>
+        <view class="weui-flex__item">
+          <view class="placeholder address-middle-view">
+            <view class='weui-flex'>
+              <view>
+                <view class="placeholder name-text">{{item.username}}</view>
+              </view>
+              <view class="weui-flex__item">
+                <view class="placeholder phone-text">{{item.phone}}</view>
+              </view>
+              <view>
+                <view class="placeholder"></view>
+              </view>
+            </view>
+            <view class='detail-address'>
+              <text>{{item.province}}</text>
+              <text>{{item.city}}</text>
+              <text>{{item.eare}}</text>
+              <text>{{item.addressInfo}}</text>
+            </view>
+          </view>
+        </view>
+        <view class='line-grey'>
+        </view>
+        <view class='right-view'>
+          <view class="placeholder edit-view">编辑</view>
+        </view>
+      </view>
+    </block>
+    <image src='../../resource/image/add_white.png' class='add-button' bindtap='addAddress'></image>
+  </view>
+</view>
