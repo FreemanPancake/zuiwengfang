@@ -7,7 +7,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    showDialog: false,
     imgUrls: [],
     indicatorDots: true,
     autoplay: false,
@@ -19,15 +18,21 @@ Page({
     /**商品数据 */
     shoppingcarNumber: 0,
     /**购物车数量**/
+    //加入购物车对话框
+    showDialog: false,
+    proInfoWindow: false,//控制弹窗是否显示
     wineId: -1, //商品id
     categoryName: '类型名', //类型名
     categoryList: [], //类型数组
     mealList: [], //套餐数组
     wineNumber: 1, //商品数量
     bgColor: '#f6f6f6',//确定按钮的背景颜色
-    tvColor: '#000000'//确定按钮的字体颜色
-  },
+    tvColor: '#000000',//确定按钮的字体颜色
+    //购物车对话框
+    carDialogShow:false,//购物车对话框显示
+    carData:[],//购物车数据
 
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -62,6 +67,27 @@ Page({
   addToCar: function (e) {
     this.setData({
       showDialog: !this.data.showDialog,
+      proInfoWindow: true
+    });
+  },
+  /**
+   * 显示购物车对话框
+   */
+  showCar:function(){
+    this.setData({
+      carDialogShow: !this.data.carDialogShow,
+      proInfoWindow: true
+    });
+    
+  },
+  onClickaddCarView: function () {
+    this.setData({
+      showDialog: !this.data.showDialog
+    });
+  },
+  onClickCarView:function(){
+    this.setData({
+      carDialogShow: !this.data.carDialogShow
     });
   },
   /**
@@ -167,6 +193,22 @@ Page({
     this.setData({
       wineNumber: wineNumber
     })
+  },
+  /**
+   * 关闭对话框
+   */
+  closeDialog: function () {
+    this.setData({
+      showDialog: !this.data.showDialog
+    })
+  },
+    /**
+   * 关闭购物车对话框
+   */
+  closeCarDialog:function(){
+    this.setData({
+      carDialogShow: !this.data.carDialogShow
+    })
   }
 });
 /**
@@ -237,8 +279,29 @@ function init(that) {
     mealChoosed: false
   }
   ];
+  var carData = [
+    {
+      a:1
+    }
+    ,{
+      b:2
+    },
+    {
+      c:3
+    },
+    {
+      c: 3
+    },
+    {
+      c: 3
+    },
+    {
+      c: 3
+    }
+  ];
   that.setData({
     categoryList: categoryList,
-    mealList: mealList
+    mealList: mealList,
+    carData: carData
   })
 }
