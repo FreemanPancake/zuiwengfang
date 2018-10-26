@@ -1,5 +1,6 @@
 <!--pages/main/productInfo.wxml-->
 <view class="indexPage {{proInfoWindow?'indexFixed':''}}">
+  <image src='../../resource/image/collect_grey.png' class='collect-img' />
   <view class="goods-detail-content">
     <swiper style="height:{{imageWidth}}px" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
       <block wx:for="{{imgUrls}}">
@@ -133,7 +134,7 @@
         <view style='height:24rpx;clear:both' />
         <view class='edit-view'>
           <view class='img'>
-            <image src='../../resource/image/sub_black.png' style='width:42rpx;height:42rpx;' disabled='false' bindtap='subs' />
+            <image src='{{subsImg}}' style='width:42rpx;height:42rpx;' bindtap='subs' />
           </view>
           <view>
             <input value='{{wineNumber}}' bindblur='editNumber' />
@@ -167,33 +168,44 @@
         </view>
       </view>
       <view class='line'></view>
-      <view class='shop-conpus'>
-        <view style='flex:0.98;text-align:left'>金窖酒业</view>
-        <view>
-          <text>优惠券</text>
-          <image src='../../resource/image/open.png' class='cancle-icon' bindtap='closeDialog' style='flex:0.02;text-align:right' />
+      <view class='shop-conpus' bindtap='chooseCoupons'>
+        <view style='flex:0.7;text-align:left'>金窖酒业</view>
+        <view style='flex:0.3;text-align:right'>
+          <image src='../../resource/image/open.png' class='cancle-icon' bindtap='closeDialog' />
+          <view style='float:right'>优惠券</view>
         </view>
       </view>
 
-      <scroll-view scroll-y="true" class="scoll-h">
-        <block wx:for="{{carData}}">
+      <scroll-view scroll-y="true" style='height:{{carHeight}}'>
+        <block wx:for="{{carData}}" wx:for-index='index'>
           <view class='car-item'>
             <view style='flex:1'>
-              <label bindtap='categoryChoice' style='line-height:168rpx;'>
-                <checkbox value="category" checked='{{!simplechoice}}'>
+              <label bindtap='simpleChoose' style='line-height:168rpx;' data-index='{{index}}' data-item='{{item}}'>
+                <checkbox value="category" checked='{{item.checked}}'>
                 </checkbox>
               </label>
             </view>
             <view style='flex:3'>
-              <image src='http://www.koyo527.me/wine/img/zwf/ycmtj.png' style='height:168rpx;width:186rpx;' />
+              <image src='http://66.112.218.52/wine/{{item.photo_url}}' style='height:168rpx;width:186rpx;' />
             </view>
             <view style='flex:4'>
-              <text>贵州茅台镇酱香型鸡叫茅台</text>
+              <text>{{item.name+item.collection_year}}年珍藏好品质{{item.volume}}/{{item.alcohol_percision}}度...</text>
+              <view class='edit-wine-view'>
+                <view style='flex:1;text-align:center'>
+                  <image src="{{item.img}}" style='width:42rpx;height:42rpx;' bindtap='carSubs' data-item='{{item}}' data-index='{{index}}' />
+                </view>
+                <view style='flex:1;text-align:center;border-left: #DDD 1rpx solid;border-right: #DDD 1rpx solid'>
+                  <input value='{{item.number}}' bindblur='editCarNumber' />
+                </view>
+                <view style='flex:1;text-align:center;'>
+                  <image src='../../resource/image/add_black.png' style='width:42rpx;height:42rpx;' bindtap='carAdd' data-item='{{item}}' data-index='{{index}}' />
+                </view>
+              </view>
             </view>
             <view class='car-item-right'>
-              <text style='flex:0.4;color:orangered'>￥99.00</text>
+              <text style='flex:0.4;color:orangered'>￥{{item.price}}</text>
               <view style='flex:0.6;margin-top:24rpx'>
-                <image src='../../resource/image/delete.png' style='height:58rpx;width:58rpx' />
+                <image src='../../resource/image/delete.png' style='height:58rpx;width:58rpx' bindtap='deleteById' data-id='{{item.id}}' />
               </view>
             </view>
           </view>
@@ -203,7 +215,19 @@
       <view>
       </view>
       <view class='cal-view'>
-        结算
+        <view style='flex:0.02;height:68rpx'>
+          <label bindtap='totalChoose' style='line-height:62rpx;'>
+            <checkbox value="category" checked='{{totalChoose}}'>
+            </checkbox>
+          </label>
+        </view>
+        <view style='flex:0.18;text-align;left'>全选({{totalNumber}})</view>
+        <view style='flex:0.6;color:orangered;font-size:32rpx;'>
+          ￥{{totalSum}}
+        </view>
+        <view style="flex:0.2;padding:16rpx 24rpx;background:{{calaBgColor}};color:{{calaTvColor}};text-align:center" bindtap='confirmCala'>
+          结算
+        </view>
       </view>
 
 

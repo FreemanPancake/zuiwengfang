@@ -1,9 +1,18 @@
 /* pages/main/productInfo.wxss */
 /*隐藏滚动条*/
+@import '../../resource/weixin/weui.wxss';
 ::-webkit-scrollbar {
   width: 0;
   height: 0;
   color: transparent;
+}
+.collect-img{
+  width: 58rpx;
+  height: 58rpx;
+  position: absolute;
+  right: 32rpx;
+  top:32rpx;
+  z-index: 9999999;
 }
 .goods-detail-content {
   background-color: #e8e8ed;
@@ -309,6 +318,7 @@
 .cancle-icon {
   width: 52rpx;
   height: 52rpx;
+  float:right;
 }
 
 .wine-info {
@@ -426,18 +436,18 @@
   display: flex;
   align-items: flex-start;
   margin-left: 24rpx;
-  padding: 6rpx 0;
+  padding: 12rpx 0;
+  padding-right: 12rpx;
 }
 
-.scoll-h {
-  height: 680rpx;
-}
 
 .car-item {
   display: flex;
   align-items: flex-start;
   border-top: 1rpx #ddd solid;
-  padding: 24rpx;
+  margin-left: 24rpx;
+  padding: 12rpx 0;
+  padding-right: 24rpx;
 }
 
 .car-item-right {
@@ -446,10 +456,22 @@
   flex-direction: column;
 }
 
+
+.edit-wine-view{
+  width: 50%;
+  margin-top: 24rpx;
+  display: flex;
+  align-items: center;
+  border-radius: 4%;
+  border: #DDD 1rpx solid;
+}
+
 .cal-view {
   width: 100%;
   padding: 24rpx;
   text-align: center;
-  background: #eee;
-  color: black;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  border-top: 1rpx #DDD solid;
 }

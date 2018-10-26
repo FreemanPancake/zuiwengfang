@@ -17,7 +17,8 @@
     "pages/order/waitSend",
     "pages/order/waitCarry",
     "pages/order/waitEvaluate",
-    "pages/order/orderList"
+    "pages/order/orderList",
+    "pages/coupons/couponsList"
   ],
   "window": {
     "backgroundTextStyle": "dark",
