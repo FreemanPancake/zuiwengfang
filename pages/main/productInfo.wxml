@@ -70,7 +70,7 @@
       <view class='car-box' bindtap='showCar'>
         <view class='car-image-box'>
           <image src='../../resource/image/car2.png'>
-            <text class='goods-num'>{{shoppingcarNumber}}</text>
+            <text class='goods-num' hidden='{{hideNumberFlag}}'>{{shoppingcarNumber}}</text>
           </image>
 
         </view>
@@ -79,7 +79,7 @@
       </view>
       <view class='empty'></view>
       <view class='car-add-box' bindtap='addToCar'>加入购物车</view>
-      <view class='goods-buy-box'>立即购买</view>
+      <view class='goods-buy-box' bindtap='immediateBuy'>立即购买</view>
     </view>
   </view>
 </view>
@@ -147,7 +147,7 @@
         <view style='height:24rpx;clear:both' />
       </view>
 
-      <view class='bottom-view' style='background:{{bgColor}};color:{{tvColor}}'>
+      <view class='bottom-view' style='background:{{bgColor}};color:{{tvColor}}' bindtap='confirm'>
         确定
       </view>
     </view>
@@ -195,7 +195,7 @@
                   <image src="{{item.img}}" style='width:42rpx;height:42rpx;' bindtap='carSubs' data-item='{{item}}' data-index='{{index}}' />
                 </view>
                 <view style='flex:1;text-align:center;border-left: #DDD 1rpx solid;border-right: #DDD 1rpx solid'>
-                  <input value='{{item.number}}' bindblur='editCarNumber' />
+                  <input value='{{item.number}}' bindblur='editCarNumber' data-id='{{item.id}}' data-index='{{index}}'/>
                 </view>
                 <view style='flex:1;text-align:center;'>
                   <image src='../../resource/image/add_black.png' style='width:42rpx;height:42rpx;' bindtap='carAdd' data-item='{{item}}' data-index='{{index}}' />

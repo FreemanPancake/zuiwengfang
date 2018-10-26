@@ -211,7 +211,7 @@
   padding-top: 25rpx;
   padding-bottom: 25rpx;
   flex: 1;
-  background-color: #f23030;
+  background-color: #FF4500;
   color: #fff;
 }
 
@@ -359,13 +359,13 @@
 }
 
 .cate-view-press {
-  border: 1rpx red solid;
+  border: 1rpx #FF4500 solid;
   color: white;
   padding-left: 32rpx;
   padding-right: 32rpx;
   padding-bottom: 8rpx;
   padding-top: 8rpx;
-  background: red;
+  background: #FF4500;
   margin-right: 24rpx;
   float: left;
   border-radius: 4%;

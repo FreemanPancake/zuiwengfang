@@ -17,6 +17,7 @@ Page({
     productInfo: {},
     /**商品数据 */
     shoppingcarNumber: 0,
+    hideNumberFlag: true, //是否隐藏购物车图标数字
     /**购物车数量**/
     //加入购物车对话框
     showDialog: false,
@@ -29,15 +30,16 @@ Page({
     bgColor: '#f6f6f6', //确定按钮的背景颜色
     tvColor: '#000000', //确定按钮的字体颜色
     subsImg: '../../resource/image/sub_grey.png', //剑豪图片
+    confirmFlag: false, //添加购物车确定按钮是否可用
     //购物车对话框
     carDialogShow: false, //购物车对话框显示
     carData: [], //购物车数据
     carHeight: '', //购物车高度
     totalNumber: 0, //商品总数
     totalSum: 0, //购物车总金额
-    totalChoose: true,//全选
-    calaBgColor:'#FF4500',//结算背景颜色
-    calaTvColor:'#FFFFFF'
+    totalChoose: true, //全选
+    calaBgColor: '#FF4500', //结算背景颜色
+    calaTvColor: '#FFFFFF'
   },
   /**
    * 生命周期函数--监听页面加载
@@ -59,7 +61,7 @@ Page({
       wineId: options.id
     });
     //获取商品信息
-    getProduct(this, options.id);
+    getProduct(this);
     //获取购物车信息
     queryCarData(this);
   },
@@ -82,6 +84,9 @@ Page({
    * 显示购物车对话框
    */
   showCar: function() {
+    if (this.data.shoppingcarNumber == 0) {
+      return;
+    }
     this.setData({
       carDialogShow: !this.data.carDialogShow, //显示对话框
       proInfoWindow: true, //底层页面不能滚动
@@ -92,7 +97,8 @@ Page({
    */
   onClickaddCarView: function() {
     this.setData({
-      showDialog: !this.data.showDialog
+      showDialog: !this.data.showDialog,
+      proInfoWindow: false
     });
   },
   /**
@@ -100,7 +106,8 @@ Page({
    */
   onClickCarView: function() {
     this.setData({
-      carDialogShow: !this.data.carDialogShow
+      carDialogShow: !this.data.carDialogShow,
+      proInfoWindow: false
     });
   },
   /**
@@ -110,6 +117,7 @@ Page({
     var categoryList = this.data.categoryList;
     var mealList = this.data.mealList;
     var bgFlag = false;
+    var confirmFlag = false;
     var index = e.currentTarget.dataset.index;
     //切换点击item的背景和字体颜色
     for (var account = 0; account < categoryList.length; account++) {
@@ -120,22 +128,24 @@ Page({
     for (var account = 0; account < mealList.length; account++) {
       if (mealList[account].mealChoosed) {
         bgFlag = true;
+        confirmFlag = true;
         break;
       }
     }
     if (bgFlag) {
       this.setData({
-        bgColor: '#f46467',
+        bgColor: '#FF4500',
         tvColor: '#FFFFFF'
       });
     } else {
       this.setData({
-        bgColor: '#f6f6f6',
+        bgColor: '#FF4500',
         tvColor: '#000000'
       });
     }
     this.setData({
-      categoryList: categoryList
+      categoryList: categoryList,
+      confirmFlag: confirmFlag
     })
   },
   /**
@@ -145,6 +155,7 @@ Page({
     var mealList = this.data.mealList;
     var categoryList = this.data.categoryList;
     var index = e.currentTarget.dataset.index;
+    var confirmFlag = false;
     //切换点击item的背景和字体颜色
     for (var account = 0; account < mealList.length; account++) {
       mealList[account].mealChoosed = false;
@@ -155,22 +166,24 @@ Page({
     for (var account = 0; account < categoryList.length; account++) {
       if (categoryList[account].cateChoosed) {
         bgFlag = true;
+        confirmFlag = true;
         break;
       }
     }
     if (bgFlag) {
       this.setData({
-        bgColor: '#f46467',
+        bgColor: '#FF4500',
         tvColor: '#FFFFFF'
       });
     } else {
       this.setData({
-        bgColor: '#f6f6f6',
+        bgColor: '#FF4500',
         tvColor: '#000000'
       });
     }
     this.setData({
       mealList: mealList,
+      confirmFlag: confirmFlag
     })
   },
   /**
@@ -271,6 +284,43 @@ Page({
     updateCarNumber(this, thisData.id, thisNumber);
   },
   /**
+   * 编辑购物车商品数量
+   */
+  editCarNumber: function(e) {
+    var carData = this.data.carData;
+    var index = e.currentTarget.dataset.index;
+    let wineNumber = e.detail.value;
+    let id = e.currentTarget.dataset.id;
+    //判断商品数量
+    if (wineNumber * 1 < 1) {
+      wx.showToast({
+        title: '数量不能小于1',
+      })
+      carData[index].number = carData[index].number;
+      this.setData({
+        carData: carData
+      });
+      return;
+    } else if (wineNumber == 1) {
+      carData[index].img = '../../resource/image/sub_black.png';
+    }
+    carData[index].number = wineNumber;
+    //刷新全选数字和商品总额
+    for (var numbers = 0; numbers < carData.length; numbers++) {
+      if (carData[numbers].checked) {
+        totalNumber++;
+        totalSum += carData[numbers].number * carData[numbers].price
+      }
+    }
+    this.setData({
+      carData: carData,
+      totalNumber: totalNumber,
+      totalSum: totalSum
+    });
+    //将修改的数据更新到数据库
+    updateCarNumber(this, id, wineNumber);
+  },
+  /**
    * 编辑商品数量
    */
   editNumber: function(e) {
@@ -294,17 +344,33 @@ Page({
   deleteById: function(e) {
     let that = this;
     let id = e.currentTarget.dataset.id;
-    wx.showLoading({
-      title: '删除中',
-    })
-    app.request({
-      url: '/shoppingcar/deleteEntityByid.do?id=' + id,
-      success: function(res) {
-        wx.hideLoading();
-        queryCarData(that);
-      },
-      fail: function(res) {
-        wx.hideLoading()
+    wx.showModal({
+      title: '提示',
+      content: '确定将该商品移除购物车吗？',
+      success: function (res) {
+        if (res.confirm) {
+          wx.showLoading({
+            title: '删除中',
+          })
+          //删除商品
+          app.request({
+            url: '/shoppingcar/deleteEntityByid.do?id=' + id,
+            success: function (res) {
+              wx.showToast({
+                title: '删除成功',
+              })
+              wx.hideLoading();
+              queryCarData(that);
+              that.setData({
+                carDialogShow: !that.data.carDialogShow, //显示对话框
+                proInfoWindow: false, //底层页面不能滚动
+              });
+            },
+            error: function (err) {
+              wx.hideLoading();
+            }
+          });
+        }
       }
     })
   },
@@ -338,12 +404,12 @@ Page({
           calaBgColor = '#FF4500';
           calaTvColor = '#FFFFFF';
           break;
-        }else{
+        } else {
           calaBgColor = '#DDDDDD';
           calaTvColor = '#222222';
         }
       }
-      
+
     }
     //置换当前选中状态
     carData[index].checked = !carData[index].checked;
@@ -416,7 +482,7 @@ Page({
   /**
    * 选择优惠券
    */
-  chooseCoupons:function(){
+  chooseCoupons: function() {
     wx.navigateTo({
       url: '../coupons/couponsList',
     })
@@ -424,23 +490,91 @@ Page({
   /**
    * 选择优惠券
    */
-  confirmCala:function(){
+  confirmCala: function() {
     var carData = this.data.carData;
     var newCarData = [];
-    for(var account = 0;account<carData.length;account++){
-      if(carData[account].checked){
+    for (var account = 0; account < carData.length; account++) {
+      if (carData[account].checked) {
         newCarData.push(carData[account]);
       }
     }
     wx.navigateTo({
       url: '../order/order?carData=' + JSON.stringify(newCarData),
     })
+  },
+  /**
+   * 添加商品到购物车
+   */
+  confirm: function() {
+    var that = this;
+    var wineNumber = that.data.wineNumber;
+    var wineId = that.data.wineId;
+    if (!that.data.confirmFlag) {
+      return;
+    }
+    //显示加载框
+    wx.showLoading({
+      title: '加载中',
+    })
+    //根据wineId查询
+    app.request({
+      url: '/shoppingcar/queryList.do',
+      method: 'POST',
+      data: {
+        wineId: wineId,
+        createUser: app.globalData.userInfo.userId
+      },
+      success: function(res) {
+        //判断购物车中该商品是否存在
+        if (res.data.length > 0) {
+          //更新购物车商品数量
+          updateShoppincar(that, res.data[0].id, wineNumber);
+        } else {
+          //添加商品到购物车
+          addCar(that, app.globalData.userInfo.userId, wineId, wineNumber)
+        }
+      },
+      error: function(err) {
+        //隐藏加载框
+        wx.hideLoading();
+        wx.showToast({
+          title: '服务器异常'
+        })
+      }
+    });
+  },
+  /**
+   * 立即购买
+   */
+  immediateBuy: function() {
+    var productInfo = this.data.productInfo;
+    var carData = [];
+    var wineNumber = 1;
+    var orderData = {
+      id: productInfo.id,
+      address: productInfo.address,
+      name: productInfo.name,
+      category_name: productInfo.categoryName,
+      collection_year: productInfo.collectionYear,
+      volume: productInfo.volume,
+      alcoholPercision: productInfo.alcohol_percision,
+      price: productInfo.price,
+      unit: productInfo.unit,
+      number: wineNumber,
+      promotion_name: productInfo.promotionName,
+      photo_url: productInfo.photoUrl
+    };
+    carData.push(orderData);
+    wx.navigateTo({
+      url: '../order/order?carData=' + JSON.stringify(carData),
+    })
   }
 });
 /**
  * 获取商品详情
  */
-function getProduct(that, id) {
+function getProduct(that) {
+  var id = that.data.wineId;
   app.request({
     url: '/wine/findEntityById.do',
     method: 'GET',
@@ -506,9 +640,13 @@ function queryCarData(that) {
       wx.hideLoading();
       var carData = res.data;
       var shoppingcarNumber = carData.length;
+      var hideNumberFlag = false;
       var carHeight = shoppingcarNumber * 230;
       var totalSum = 0;
       var totalNumber = 0;
+      if (shoppingcarNumber == 0) {
+        hideNumberFlag = true;
+      }
       if (carHeight > 700) {
         carHeight = 690 + 'rpx';
       } else {
@@ -529,6 +667,7 @@ function queryCarData(that) {
         carData: carData, //购物火车数据
         carHeight: carHeight,
         shoppingcarNumber: shoppingcarNumber,
+        hideNumberFlag: hideNumberFlag,
         totalNumber: totalNumber,
         totalSum: totalSum
       });
@@ -547,4 +686,68 @@ function updateCarNumber(that, id, numbers) {
     success: function(res) {},
     fail: function(res) {}
   })
+}
+
+/**
+ * 更新购物车数据
+ */
+function updateShoppincar(that, id, numbers) {
+  app.request({
+    url: '/shoppingcar/updateNumber.do',
+    method: 'POST',
+    data: {
+      id: id,
+      number: numbers
+    },
+    success: function(res) {
+      wx.hideLoading();
+      queryCarData(that);
+      that.setData({
+        showDialog: !that.data.showDialog, //显示对话框
+        proInfoWindow: false, //底层页面不能滚动
+      });
+      wx.showToast({
+        title: '已加入购物车'
+      })
+    },
+    error: function(err) {
+      wx.hideLoading();
+      wx.showToast({
+        title: '服务器异常'
+      })
+    }
+  });
+
+}
+
+/**
+ * 添加商品到购物车
+ */
+function addCar(that, userId, wineId, numbers) {
+  app.request({
+    url: '/shoppingcar/saveEntity.do',
+    method: 'POST',
+    data: {
+      createUser: userId,
+      wineId: wineId,
+      number: numbers
+    },
+    success: function(res) {
+      wx.hideLoading();
+      queryCarData(that);
+      that.setData({
+        carDialogShow: !that.data.carDialogShow, //显示对话框
+        proInfoWindow: false, //底层页面不能滚动
+      });
+      wx.showToast({
+        title: '已加入购物车'
+      })
+    },
+    error: function(err) {
+      wx.hideLoading();
+      wx.showToast({
+        title: '服务器异常'
+      })
+    }
+  });
 }
