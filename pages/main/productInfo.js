@@ -139,7 +139,7 @@ Page({
       });
     } else {
       this.setData({
-        bgColor: '#FF4500',
+        bgColor: '#F6F6F6',
         tvColor: '#000000'
       });
     }
@@ -177,7 +177,7 @@ Page({
       });
     } else {
       this.setData({
-        bgColor: '#FF4500',
+        bgColor: '#F6F6F6',
         tvColor: '#000000'
       });
     }
