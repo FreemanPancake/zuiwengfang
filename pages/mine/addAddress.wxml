@@ -56,7 +56,7 @@
          <view wx:for='{{signList}}'>
           <view class="{{item.choose?'item-sign_choose':'item-sign'}}" bindlongtap='deleteSign' bindtap='chooseSign'data-index="{{index}}">{{item.name}}</view>
          </view>
-         <image src='../../resource/image/add.png' class='sign-add' hidden='{{signAddShow}}' bindtap='addSign'/>
+         <image src='../../resource/image/add_black.png' class='sign-add' hidden='{{signAddShow}}' bindtap='addSign'/>
         </div>
       </div>
     </div>

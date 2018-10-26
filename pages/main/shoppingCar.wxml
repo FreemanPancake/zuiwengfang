@@ -55,13 +55,13 @@
           </view>
           <view class='weui-flex edit_view'>
             <view class='weui-flex__item edit_mini' bindtap='subtraction' data-item='{{item}}'>
-              <image src='../../resource/image/mini.png' style='width:42rpx;height:42rpx;line-height:80rpx;' />
+              <image src='../../resource/image/sub_black.png' style='width:42rpx;height:42rpx;line-height:80rpx;' />
             </view>
             <view class='weui-flex__item edit_input'>
               <input type='number' style='width:100%;height:100%;' value='{{item.number}}' data-item='{{item}}' bindblur='getInput' />
             </view>
             <view class='weui-flex__item edit_add' bindtap='add' data-item='{{item}}'>
-              <image src='../../resource/image/add.png' style='width:42rpx;height:42rpx;line-height:80rpx;' />
+              <image src='../../resource/image/add_black.png' style='width:42rpx;height:42rpx;line-height:80rpx;' />
             </view>
           </view>
         </view>
