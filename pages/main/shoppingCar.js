@@ -1,24 +1,45 @@
 // pages/main/shoppingCar.js
 var app = getApp();
+let defaultAddress = 1;
 Page({
   /** 
    * 页面的初始数据
    */
   data: {
 
+    addrPath: '../../resource/image/address.png', //地址路径
+
+    addrStr: '云南省昆明市官渡区...', //默认地址
+
+    openImgpath: '../../resource/image/open.png', //打开图片的路径
+
+    logoPath: '../../resource/image/logo.png', //logo图片路径
+
+    actImgpath: '../../resource/image/activity_middle.png', //活动图片路径
+
+    addImgpath: '../../resource/image/add_black.png', //加号图片路径
+
+    topText: '编辑商品', //编辑商品
+
+    scrollHeight: 0, //滚动页面高度
+
     simplechoice: true, //单选
 
-    isAllChoice: true,//全选
+    totalChoose: true, //全选
 
-    hasCache: true,//缓存中是否有数据
+    hasData: true, //购物车中是否有商品
 
-    shoppingCarList: [],//购物车数据
+    carData: [], //购物车数据
 
-    editProduct: false,//全选编辑商品
+    editProduct: false, //全选编辑商品
 
-    isAllEdit: false,//编辑商品
+    isAllEdit: false, //编辑商品
 
-    sum: 0,//共计金额
+    sum: 0, //共计金额
+
+    bgColor:'#FF4500',//结算背景色
+
+    tvColor:'#FFFFFF',//结算字体颜色
 
   },
 
@@ -32,26 +53,91 @@ Page({
     this.getShoppingcarData(); /*获取购物车缓存数据 */
   },
   /**
+   * 单选
+   */
+  simpleChoose:function(e){
+    let thisData = e.currentTarget.dataset.item;
+    let index = e.currentTarget.dataset.index;
+    var carData = this.data.carData;
+    var totalChoose = this.data.totalChoose;
+    var newTotalChoose = true;
+    var totalSum = 0;
+    var bgColor = '#FF4500';
+    var tvColor = '#FFFFFF';
+    //如果当前是为选中状态，并且数组中全为选中，则将全选置为选中，否则为不选中,以及结算按钮背景色和字体色
+    if (!carData[index].checked) {
+      for (var account = 0; account < carData.length; account++) {
+        if (!carData[account].checked && account != index * 1) {
+          newTotalChoose = false;
+          break;
+        }
+      }
+    }
+    //如果当前是取消选择，则让全选取消选中
+    if (carData[index].checked) {
+      newTotalChoose = false;
+      for (var account = 0; account < carData.length; account++) {
+        if (carData[account].checked && account != index * 1) {
+          bgColor = '#FF4500';
+          tvColor = '#FFFFFF';
+          break;
+        } else {
+          bgColor = '#DDDDDD';
+          tvColor = '#222222';
+        }
+      }
+
+    }
+    //置换当前选中状态
+    carData[index].checked = !carData[index].checked;
+
+    //刷新全选数字和商品总额
+    for (var numbers = 0; numbers < carData.length; numbers++) {
+      if (carData[numbers].checked) {
+        totalSum += carData[numbers].number * carData[numbers].price
+      }
+    }
+    this.setData({
+      carData: carData,
+      totalChoose: newTotalChoose,
+      totalSum: totalSum,
+      bgColor: bgColor,
+      tvColor: tvColor
+    });
+  },
+  /**
    * 点击全选
    */
-  allChoice: function() {
+  totalChoose: function() {
     var that = this;
-    that.setData({
-      isAllChoice: !that.data.isAllChoice
-    })
+    var carData = this.data.carData;
+    var totalChoose = this.data.totalChoose;
+    var totalSum = 0;
+    var bgColor = '#FF4500';
+    var tvColor = '#FFFFFF';
+    //切换全选按钮时，同时置换每个单选按钮为相应状态
+    for (var account = 0; account < carData.length; account++) {
+      carData[account].checked = !totalChoose;
+      totalSum += carData[account].number * carData[account].price;
+    }
+    if (totalChoose) {
+      totalSum = 0.00;
+      bgColor = '#DDDDDD';
+      tvColor = '#222222';
+    }
+    this.setData({
+      totalChoose: !totalChoose,
+      carData: carData,
+      totalSum: totalSum,
+      bgColor: bgColor,
+      tvColor: tvColor
+    });
   },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
+   /**
    * 下单
    */
   order: function(e) {
-    var carData = this.data.shoppingCarList;
+    var carData = this.data.carData;
     wx.navigateTo({
       url: '../order/order?carData=' + JSON.stringify(carData)
     })
@@ -67,6 +153,7 @@ Page({
    * 获取购物车数据
    */
   getShoppingcarData: function() {
+    wx.showLoading({})
     var that = this;
     app.request({
       url: '/shoppingcar/queryListShoppingCar.do',
@@ -77,48 +164,26 @@ Page({
       success: function(res) {
         wx.hideLoading();
         var carData = res.data;
-        if (carData.length == 0) {
-          that.setData({
-            hasCache: false,
-          })
-        } else {
-          var totalSum = 0;
-          for (var acounter = 0; acounter < carData.length; acounter++) {
-            totalSum += (carData[acounter].number) * (carData[acounter].price);
-          }
-          that.setData({
-            hasCache: true,
-            shoppingCarList: carData,
-            sum: totalSum
-          });
+        var totalSum = 0;
+        var hasData = carData.length == 0 ? false : true;
+        for (var account = 0; account < carData.length; account++) {
+          carData[account].checked = true;
+          totalSum += carData[account].price * carData[account].number;
+          carData[account].subsImgpath = carData[account].number * 1 > 1 ? '../../resource/image/sub_black.png' :
+            '../../resource/image/sub_grey.png';
         }
+        that.setData({
+          hasData: hasData,
+          carData: carData,
+          sum: totalSum
+        });
+
       },
-      error: function(err) {
+      fail(err) {
         wx.hideLoading();
       }
     });
   },
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
   /**
    * 跳转到商品详情
    */
@@ -151,7 +216,7 @@ Page({
   /**
    * 点击减号
    */
-  subtraction: function(e) {
+  carSubs: function(e) {
     var that = this;
     var itemData = e.currentTarget.dataset.item;
     if (itemData.number * 1 == 1) {
@@ -192,12 +257,19 @@ Page({
    */
   getInput: function(e) {
     var that = this;
+    var carData = that.data.carData;
+    var index = e.currentTarget.dataset.index;
     var itemData = e.currentTarget.dataset.item;
     var value = e.detail.value;
     if (value * 1 < 1) {
       wx.showToast({
         title: '输入数字必须大于1',
       })
+      carData[index].number = carData[index].number;
+      that.setData({
+        carData: carData
+      });
+      return;
     }
     updateShoppincar(that, itemData.id, (value) * 1);
   },
@@ -205,7 +277,7 @@ Page({
   /**
    * 点击加号
    */
-  add: function(e) {
+  carAdd: function(e) {
     var that = this;
     var itemData = e.currentTarget.dataset.item;
     updateShoppincar(that, itemData.id, (itemData.number) * 1 + 1);
@@ -227,35 +299,32 @@ Page({
       });
     }
   },
+  /**
+   * 选择地址
+   */
+  chooseAddr: function() {
+    wx.navigateTo({
+      url: '../mine/address',
+    })
+  }
 });
 /**
  * 页面数据初始化
  */
 function initView(that) {
-  var recommendData = [{
-      title: "搜藏",
-      url: "../../resource/image/collect.png"
-    },
-    {
-      title: "搜藏",
-      url: "../../resource/image/collect.png"
-    },
-    {
-      title: "搜藏",
-      url: "../../resource/image/collect.png"
-    },
-    {
-      title: "搜藏",
-      url: "../../resource/image/collect.png"
-    },
-    {
-      title: "搜藏",
-      url: "../../resource/image/collect.png"
+  wx.getSystemInfo({
+    success: function(res) {
+      var clientHeight = res.windowHeight,
+        clientWidth = res.windowWidth,
+        rpxR = 750 / clientWidth;
+      var calc = clientHeight * rpxR - 96;
+      that.setData({
+        scrollHeight: calc
+      })
     }
-  ]
-  that.setData({
-    recommendData: recommendData
   });
+  //查询默认地址
+  queryAddress(that);
 }
 
 /**
@@ -272,7 +341,38 @@ function updateShoppincar(that, id, numbers) {
     success: function(res) {
       that.getShoppingcarData();
     },
-    error: function(err) {}
+    error: function(err) {
+
+    }
   });
 
+}
+
+
+/**
+ * 查询地址
+ */
+function queryAddress(that) {
+  wx.showLoading({});
+  var addrStr = '选择地址';
+  app.request({
+    url: '/address/queryList.do?',
+    data: {
+      createUser: app.globalData.userInfo.userId,
+      defaultAddress: defaultAddress
+    },
+    success: function(res) {
+      wx.hideLoading();
+      var data = res.data;
+      if (data.length > 0) {
+        addrStr = data[0].province + data[0].city + data[0].eare + '...';
+      }
+      that.setData({
+        addrStr: addrStr
+      });
+    },
+    fail: function(err) {
+      wx.hideLoading();
+    },
+  });
 }
