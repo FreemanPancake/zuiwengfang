@@ -230,7 +230,8 @@
         </view>
       </view>
 
-
     </view>
   </view>
 </view>
+
+  <view class="toptips {{ isTopTipShow ? 'toptips--show' : '' }}">添加成功</view>

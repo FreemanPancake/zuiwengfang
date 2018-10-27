@@ -1,4 +1,5 @@
 // pages/main/productInfo.js
+let timer = null;
 var app = getApp();
 var imageUtil = require('../../utils/util.js');
 Page({
@@ -30,7 +31,8 @@ Page({
     bgColor: '#f6f6f6', //确定按钮的背景颜色
     tvColor: '#000000', //确定按钮的字体颜色
     subsImg: '../../resource/image/sub_grey.png', //剑豪图片
-    confirmFlag: false, //添加购物车确定按钮是否可用
+    cateFlag: false, //是否选择类型
+    mealFlag: false, //是否选择套餐
     //购物车对话框
     carDialogShow: false, //购物车对话框显示
     carData: [], //购物车数据
@@ -39,7 +41,9 @@ Page({
     totalSum: 0, //购物车总金额
     totalChoose: true, //全选
     calaBgColor: '#FF4500', //结算背景颜色
-    calaTvColor: '#FFFFFF'
+    calaTvColor: '#FFFFFF',
+    //顶部提示
+    isTopTipShow:false,
   },
   /**
    * 生命周期函数--监听页面加载
@@ -117,7 +121,6 @@ Page({
     var categoryList = this.data.categoryList;
     var mealList = this.data.mealList;
     var bgFlag = false;
-    var confirmFlag = false;
     var index = e.currentTarget.dataset.index;
     //切换点击item的背景和字体颜色
     for (var account = 0; account < categoryList.length; account++) {
@@ -128,7 +131,6 @@ Page({
     for (var account = 0; account < mealList.length; account++) {
       if (mealList[account].mealChoosed) {
         bgFlag = true;
-        confirmFlag = true;
         break;
       }
     }
@@ -143,9 +145,10 @@ Page({
         tvColor: '#000000'
       });
     }
+
     this.setData({
       categoryList: categoryList,
-      confirmFlag: confirmFlag
+      cateFlag: true
     })
   },
   /**
@@ -155,7 +158,6 @@ Page({
     var mealList = this.data.mealList;
     var categoryList = this.data.categoryList;
     var index = e.currentTarget.dataset.index;
-    var confirmFlag = false;
     //切换点击item的背景和字体颜色
     for (var account = 0; account < mealList.length; account++) {
       mealList[account].mealChoosed = false;
@@ -166,7 +168,6 @@ Page({
     for (var account = 0; account < categoryList.length; account++) {
       if (categoryList[account].cateChoosed) {
         bgFlag = true;
-        confirmFlag = true;
         break;
       }
     }
@@ -181,9 +182,10 @@ Page({
         tvColor: '#000000'
       });
     }
+
     this.setData({
       mealList: mealList,
-      confirmFlag: confirmFlag
+      mealFlag: true
     })
   },
   /**
@@ -347,7 +349,7 @@ Page({
     wx.showModal({
       title: '提示',
       content: '确定将该商品移除购物车吗？',
-      success: function (res) {
+      success: function(res) {
         if (res.confirm) {
           wx.showLoading({
             title: '删除中',
@@ -355,7 +357,7 @@ Page({
           //删除商品
           app.request({
             url: '/shoppingcar/deleteEntityByid.do?id=' + id,
-            success: function (res) {
+            success: function(res) {
               wx.showToast({
                 title: '删除成功',
               })
@@ -366,7 +368,7 @@ Page({
                 proInfoWindow: false, //底层页面不能滚动
               });
             },
-            error: function (err) {
+            error: function(err) {
               wx.hideLoading();
             }
           });
@@ -488,9 +490,15 @@ Page({
     })
   },
   /**
-   * 选择优惠券
+   * 结算
    */
   confirmCala: function() {
+    if (this.data.totalNumber == 0){
+      wx.showToast({
+        title: '请先选择商品',
+      })
+      return ;
+    }
     var carData = this.data.carData;
     var newCarData = [];
     for (var account = 0; account < carData.length; account++) {
@@ -509,7 +517,15 @@ Page({
     var that = this;
     var wineNumber = that.data.wineNumber;
     var wineId = that.data.wineId;
-    if (!that.data.confirmFlag) {
+    if (!that.data.cateFlag) {
+      wx.showToast({
+        title: '请选择类型',
+      })
+      return;
+    } else if (!that.data.mealFlag){
+      wx.showToast({
+        title: '请选择套餐',
+      })
       return;
     }
     //显示加载框
@@ -701,14 +717,22 @@ function updateShoppincar(that, id, numbers) {
     },
     success: function(res) {
       wx.hideLoading();
+      //刷新购物车数据
       queryCarData(that);
+      //重新初始化数据
+      init(that);
       that.setData({
         showDialog: !that.data.showDialog, //显示对话框
         proInfoWindow: false, //底层页面不能滚动
       });
-      wx.showToast({
-        title: '已加入购物车'
-      })
+      that.setData({
+        isTopTipShow: true
+      });
+      timer = setTimeout(function () {
+        that.setData({
+          isTopTipShow: false
+        });
+      }, 1500);
     },
     error: function(err) {
       wx.hideLoading();
@@ -734,14 +758,22 @@ function addCar(that, userId, wineId, numbers) {
     },
     success: function(res) {
       wx.hideLoading();
+      //刷新购物车数据
       queryCarData(that);
+      //重新初始化数据
+      init(that);
       that.setData({
         carDialogShow: !that.data.carDialogShow, //显示对话框
         proInfoWindow: false, //底层页面不能滚动
       });
-      wx.showToast({
-        title: '已加入购物车'
-      })
+      that.setData({
+        isTopTipShow: true
+      });
+      timer = setTimeout(function () {
+        that.setData({
+          isTopTipShow: false
+        });
+      }, 1500);
     },
     error: function(err) {
       wx.hideLoading();
