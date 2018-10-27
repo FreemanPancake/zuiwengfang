@@ -12,11 +12,11 @@
         <image src='{{addrPath}}' mode='widthFix' />
       </view>
       <view bindtap='chooseAddr'>{{addrStr}}</view>
-      <text bindtap='editProduct'>{{topText}}</text>
+      <text bindtap='editProduct' style='text-align:right;'>{{topText}}</text>
     </view>
 
     <view class='nav-car__item'>
-      <view class='shop-view'>
+      <view class='shop-view' bindtap='coupons'>
         <view class='logo-view'>
           <image src='{{logoPath}}' mode='widthFix' />
         </view>
@@ -67,8 +67,16 @@
     <image src='../../resource/image/line.png' />
   </view>
 </view>
-</scroll-view>
 
+
+<!-- 推荐数据 -->
+<view class='recommend-view' wx:for="{{[1,2,3,4,5,6,7,8,9,10,11,12,13]}}">
+<view class='comm-item'>
+<image src="http://koyo527.me/wine/img/zwf/ycmtj.png" mode='widthFix' />
+<text style='background:white;padding-bottom:32rpx;'>贵州茅台镇计较茅台酒酱香型53°/450ml好喝不上头</text>
+</view>
+</view>
+</scroll-view>
 
 
 
@@ -110,9 +118,12 @@
       <view class='collect'>
         <button class='btn_collect'>搜藏</button>
       </view>
-      <view class='delete' bindtap='deleteCache'>
+      <view class='delete' bindtap='deleteItem'>
         <button class='btn_delete'>删除</button>
       </view>
     </view>
   </view>
 </view>
+
+
+  <view class="toptips {{ isTopTipShow ? 'toptips--show' : '' }}">删除成功</view>

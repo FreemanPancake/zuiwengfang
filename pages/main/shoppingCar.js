@@ -1,6 +1,7 @@
 // pages/main/shoppingCar.js
 var app = getApp();
 let defaultAddress = 1;
+let timer = null;
 Page({
   /** 
    * 页面的初始数据
@@ -37,9 +38,11 @@ Page({
 
     sum: 0, //共计金额
 
-    bgColor:'#FF4500',//结算背景色
+    bgColor: '#FF4500', //结算背景色
 
-    tvColor:'#FFFFFF',//结算字体颜色
+    tvColor: '#FFFFFF', //结算字体颜色
+
+    isTopTipShow: false, //顶部提示
 
   },
 
@@ -55,7 +58,7 @@ Page({
   /**
    * 单选
    */
-  simpleChoose:function(e){
+  simpleChoose: function(e) {
     let thisData = e.currentTarget.dataset.item;
     let index = e.currentTarget.dataset.index;
     var carData = this.data.carData;
@@ -100,6 +103,7 @@ Page({
     this.setData({
       carData: carData,
       totalChoose: newTotalChoose,
+      isAllEdit: newTotalChoose,
       totalSum: totalSum,
       bgColor: bgColor,
       tvColor: tvColor
@@ -133,7 +137,15 @@ Page({
       tvColor: tvColor
     });
   },
-   /**
+  /**
+   * 选择优惠券
+   */
+  coupons: function() {
+    wx.navigateTo({
+      url: '../coupons/couponsList',
+    })
+  },
+  /**
    * 下单
    */
   order: function(e) {
@@ -200,18 +212,21 @@ Page({
    */
   editProduct: function() {
     var that = this;
-    //置换编辑和完成
-    if (that.data.editProduct) {
-      that.setData({
-        editProduct: !that.data.editProduct,
-        simplechoice: true
-      });
-    } else {
-      that.setData({
-        editProduct: !that.data.editProduct,
-        simplechoice: false,
-      });
+    var carData = that.data.carData;
+    var editProduct = that.data.editProduct;
+    var totalChoose = editProduct ?true:false;
+    var topText = editProduct ? '编辑商品' : '完成';
+    //切换全选按钮时，同时置换每个单选按钮为相应状态
+    for (var account = 0; account < carData.length; account++) {
+      carData[account].checked = !editProduct ? false : true;
     }
+    //置换编辑和完成
+    that.setData({
+      editProduct: !editProduct,
+      totalChoose: totalChoose,
+      carData: carData,
+      topText: topText
+    });
   },
   /**
    * 点击减号
@@ -220,36 +235,32 @@ Page({
     var that = this;
     var itemData = e.currentTarget.dataset.item;
     if (itemData.number * 1 == 1) {
-      wx.showModal({
-        title: '提示',
-        content: '确定将该商品移除购物车吗？',
-        success: function(res) {
-          if (res.confirm) {
-            wx.showLoading({})
-            //删除商品
-            app.request({
-              url: '/shoppingcar/deleteEntityByid.do',
-              method: 'POST',
-              data: {
-                id: itemData.id
-              },
-              success: function(res) {
-                wx.showToast({
-                  title: '删除成功',
-                })
-                wx.hideLoading();
-                that.getShoppingcarData();
-              },
-              error: function(err) {
-                wx.hideLoading();
-              }
-            });
-          }
-        }
-      })
+      return;
     } else {
       //点击的购物车商品减一
       updateShoppincar(that, itemData.id, (itemData.number) * 1 - 1);
+    }
+  },
+  /**
+   * 删除选中的商品
+   */
+  deleteItem: function(e) {
+    let that = this;
+    let carData = this.data.carData;
+    var index = 0;
+    for (var account = 0; account < carData.length; account++) {
+      if (carData[account].checked) {
+        index = account;
+      }
+    }
+    for (var account = 0; account < carData.length; account++) {
+      if (carData[account].checked) {
+        if (index == account) {
+          doDelete(that, carData[account].id, true);
+        } else {
+          doDelete(that, carData[account].id, false);
+        }
+      }
     }
   },
   /**
@@ -287,17 +298,16 @@ Page({
    */
   allEdit: function() {
     var that = this;
-    if (that.data.isAllEdit == true) {
-      that.setData({
-        simplechoice: false,
-        isAllEdit: false
-      });
-    } else {
-      that.setData({
-        simplechoice: true,
-        isAllEdit: true
-      });
+    var carData = this.data.carData;
+    var isAllEdit = this.data.isAllEdit;;
+    //切换全选按钮时，同时置换每个单选按钮为相应状态
+    for (var account = 0; account < carData.length; account++) {
+      carData[account].checked = !isAllEdit;
     }
+    this.setData({
+      isAllEdit: !isAllEdit,
+      carData: carData
+    });
   },
   /**
    * 选择地址
@@ -374,5 +384,63 @@ function queryAddress(that) {
     fail: function(err) {
       wx.hideLoading();
     },
+  });
+}
+/**
+ * 根据id删除商品
+ */
+function doDelete(that, id, isEnd) {
+  wx.showModal({
+    title: '提示',
+    content: '确定将该商品移除购物车吗？',
+    success: function(res) {
+      if (res.confirm) {
+        wx.showLoading({})
+        app.request({
+          url: '/shoppingcar/deleteEntityByid.do',
+          method: 'POST',
+          data: {
+            id: id
+          },
+          success: function(res) {
+            wx.hideLoading();
+            if (isEnd) {
+              app.request({
+                url: '/shoppingcar/queryListShoppingCar.do',
+                method: 'POST',
+                data: {
+                  userId: app.globalData.userInfo.userId
+                },
+                success: function(res) {
+                  that.setData({
+                    isTopTipShow: true
+                  });
+                  timer = setTimeout(function() {
+                    that.setData({
+                      isTopTipShow: false
+                    });
+                  }, 1500);
+                  var carData = res.data;
+                  for (var account = 0; account < carData.length; account++) {
+                    carData[account].checked = false;
+                    carData[account].subsImgpath = carData[account].number * 1 > 1 ? '../../resource/image/sub_black.png' :
+                      '../../resource/image/sub_grey.png';
+                  }
+                  that.setData({
+                    carData: carData
+                  });
+                },
+                fail(err) {
+                  wx.hideLoading();
+                }
+              });
+            }
+          },
+          error: function(err) {
+            wx.hideLoading();
+          }
+        });
+      }
+    }
   });
 }

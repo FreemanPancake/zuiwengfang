@@ -1,10 +1,12 @@
 /* pages/main/shoppingCar.wxss */
 @import '../../resource/weixin/weui.wxss';
+
 ::-webkit-scrollbar {
   width: 0;
   height: 0;
   color: transparent;
 }
+
 .tip-view {
   text-align: center;
   width: 100%;
@@ -29,7 +31,8 @@
 .recommend-tip__view {
   display: flex;
   align-items: flex-start;
-  margin: 32rpx 24rpx;
+  margin: 0 24rpx;
+  margin-top:32rpx; 
 }
 
 .recommend-tip__view text {
@@ -80,7 +83,7 @@
 
 .edit-top text {
   flex: 0.2;
-  margin-right: 24rpx;
+  margin-right: 48rpx;
   color: #ff4500;
 }
 
@@ -146,7 +149,7 @@
   margin-left: 12rpx;
 }
 
-.right{
+.right {
   flex: 0.8;
   height: 100%;
   margin: 0 24rpx;
@@ -155,77 +158,59 @@
   flex-direction: column;
 }
 
-.right text{
+.right text {
   flex: 1;
   color: black;
   font-size: 32rpx;
-  display:block;
-  white-space:pre-line;
+  display: block;
+  white-space: pre-line;
 }
 
-.cate-view{
+.cate-view {
   flex: 1;
   display: flex;
   width: 100%;
   align-items: center;
-  margin:12rpx 0;
+  margin: 12rpx 0;
 }
 
-.cate-view image{
+.cate-view image {
   width: 42rpx;
 }
 
-
-.cate-view text{
-flex: 1;
-text-align: right;
+.cate-view text {
+  flex: 1;
+  text-align: right;
 }
 
-
-.right-edit__view{
+.right-edit__view {
   width: 100%;
   flex: 1;
   text-align: left;
   display: flex;
   align-items: flex-start;
-  height:58rpx;
+  height: 58rpx;
 }
 
-.right-edit__view text{
-  color: #FF4500;
+.right-edit__view text {
+  color: #ff4500;
   flex: 1;
   height: 100%;
 }
 
-
-
-.right-edit__view  image{
+.right-edit__view  image {
   width: 42rpx;
   height: 42rpx;
   padding: 8rpx;
-  background: #EEEEEE;
+  background: #eee;
 }
 
-
-
-.right-edit__view  input{
+.right-edit__view  input {
   width: 58rpx;
   height: 58rpx;
-  background: #EEEEEE;
-  text-align: center
+  background: #eee;
+  text-align: center;
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* ///////////////////////////////// */
 
@@ -238,12 +223,12 @@ text-align: right;
   color: white;
 }
 
-.jiesuan{
+.jiesuan {
   width: 186rpx;
   height: 100%;
-  background: #FF4500;
-   color: white;
-   text-align: center;
+  background: #ff4500;
+  color: white;
+  text-align: center;
 }
 
 .footer {
@@ -332,9 +317,10 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
 .btn_collect {
   width: 168rpx;
   height: 68rpx;
-  line-height: 69rpx;
+  line-height: 68rpx;
   font-size: 28rpx;
   background: white;
+  margin-top: -4rpx;
   border: 0.5rpx #eee solid;
   text-align: center;
 }
@@ -342,10 +328,11 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
 .collect .button-hover {
   width: 168rpx;
   height: 68rpx;
-  line-height: 69rpx;
+  line-height: 68rpx;
   font-size: 28rpx;
   background: #eee;
   border-radius: 8rpx;
+  margin-top: -4rpx;
   border: 1rpx #eee solid;
   color: black;
 }
@@ -361,7 +348,8 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
   background: red;
   width: 168rpx;
   height: 68rpx;
-  line-height: 69rpx;
+  margin-top: -4rpx;
+  line-height: 68rpx;
   font-size: 28rpx;
   text-align: center;
   color: white;
@@ -370,10 +358,56 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
 .delete .button-hover {
   width: 168rpx;
   height: 68rpx;
-  line-height: 69rpx;
+  line-height: 68rpx;
   font-size: 28rpx;
   background: #eee;
+  margin-top: -4rpx;
   border-radius: 1rpx #eee solid;
   border: 1rpx #eee solid;
   color: black;
+}
+
+/* 顶部提示 */
+
+.toptips {
+  display: block;
+  position: fixed;
+  -webkit-transform: translateZ(0) translateY(-100%);
+  width: 100%;
+  /* 至少有一行的高度，保证第一次动画显示正常 */
+  min-height: 48px;
+  top: 0;
+  line-height: 48px;
+  font-size: 16px;
+  text-align: center;
+  color: #fff;
+  background-color: #ff4500;
+  z-index: 110;
+  /* 动画部分 */
+  transition: all 0.4s ease;
+}
+
+.recommend-view {
+  width: 100%;
+  margin-top: 32rpx;
+  background-color: #FFFFFF;
+  padding-right:12rpx; 
+}
+
+.comm-item {
+  background-color: #FFFFFF;
+  float: left;
+  width: 46%;
+  box-sizing: border-box;
+  overflow: hidden;
+  margin-left:2%;
+  margin-right:2%;
+}
+
+.comm-item image{
+width: 100%;
+}
+
+.toptips--show {
+  -webkit-transform: translateZ(0) translateY(0);
 }
