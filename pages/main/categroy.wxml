@@ -11,35 +11,27 @@
       </view>
     </view>
   </view>
-  <view id='categroy-div'>
+
+  <!-- 分类页面，不包含搜索 -->
+  <view class='nav'>
     <!--分类导航栏-->
-    <scroll-view class='left-navbar' scroll-y="true">
-      <view wx:for="{{navLeftItems}}" class="{{ curIndex == index ? 'active' : '' }}" wx:key="unique" bindtap="switchRightTab" data-id="{{item.id}}" data-index="{{index}}">{{item.name}}
+    <scroll-view class='nav-left' scroll-y="true">
+      <view class="{{curIndex == index ?'item-active':'item-after'}}" wx:for='{{navLeftItems}}' bindtap="switchRightTab" data-id="{{item.id}}" data-index="{{index}}" wx:key="unique">
+        {{item.name}}
       </view>
     </scroll-view>
 
 
-    <scroll-view id="right" scroll-y="true" scroll-top="{{scrollTop}}">
-      <view class='nav-right' wx:for='{{navRightItems}}'>
-        <view class='weui-flex nav-item-top' bindtap='productionInfo' data-id='{{item.id}}'>
-          <view class='weui-flex__item'>
-          <image class='nav-img' src='http://66.112.218.52/wine/{{item.photoUrl}}'></image>
-          </view>
-          <view class='weui-flex__item'>
-          <view style='100%;margin:12rpx;'>{{item.categoryName+item.name+item.collectionYear}}年珍藏好品质{{item.volume}}/{{item.alcoholPercision}}度{{item.promotionName}}</view>
-          </view>
+    <!-- 右侧分类页面 -->
+    <view class='right-nav'>
+      <scroll-view scroll-y="true" scroll-top="{{scrollTop}}" style='height:100%'>
+      <view class='right-nav__item' wx:for='{{navRightItems}}' wx:key="*this">
+            <view class='item' bindtap='productionInfo' data-id='{{item.id}}'>
+            <image src='http://koyo527.me/wine/{{item.photoUrl}}' mode="widthFix" />
+            <view>{{item.name}}</view>
+            </view>
         </view>
-        <view class='weui-flex'>
-          <view class='weui-flex__item' style='text-align:center'>8096条评价</view>
-          <view class='weui-flex__item' style='text-align:center'>12398人浏览</view>
-          <view class='weui-flex__item' style='text-align:right;margin-right:24rpx;'>
-            <image src='../../resource/image/add_to_car.png' style='width:36rpx;height:36rpx;' bindtap='addToCar' data-item='{{item}}'></image>
-          </view>
-        </view>
-        <view class='grey-line'>
-        </view>
-      </view>
-    </scroll-view>
-
+      </scroll-view>
+    </view>
   </view>
 </view>

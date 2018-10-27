@@ -1,61 +1,88 @@
 /* pages/main/categroy.wxss */
 @import '../../resource/weixin/weui.wxss';
-/*总体主盒子*/
-.page{
-  width: 100%;
-  height: 100%;
-  overflow:hidden;
+
+/* 隐藏滚动条 */
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
 }
 
+/*总体主盒子*/
 
-.search-view{
+.page {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.search-view {
   width: 100%;
   /* position: fixed;
   top:0%; */
   z-index: 99999;
 }
+
 /**分类栏**/
-.classify{
-  margin-top:120rpx;
-}
-.left-navbar{
-  position:absolute;
-  left:0;
-  width:25%;
-  height:90%;
-  background-color:#eee;
-  font-size:15px;
-}
-.left-navbar view{
-  height:80rpx;
-  line-height: 80rpx;
-  text-align:center;
-}
-.active{
-  background-color:#FFF;
-  color:red;
-  font-size:17px;
+
+.nav {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
 }
 
-#right{
-  position:absolute;
-  right:0;
-  width:75%;
-  height:90%;
-  background: white;
-}
-.nav-right{
-  width: 100%;
-  background: white;
+.nav-left {
+  height: 90%;
+  width: 26%;
+  text-align: center;
+  position: absolute;
 }
 
-.nav-img{
-  width: 90%;
-  height: 160rpx;
-  margin: 12rpx;
+.item-active {
+  background-color: #fff;
+  font-size: 32rpx;
+  padding: 24rpx 0;
+  color: #ff4500;
+  border-right: #ff4500 12rpx solid;
 }
-.grey-line{
+
+.item-after {
+  padding: 18rpx 0;
+  background-color: #f5f5f5;
+  font-size: 32rpx;
+  color: #555;
+  /* border-right: #dedede 6rpx solid; */
+}
+
+.right-nav {
+  position: absolute;
+  width: 74%;
+  height: 90%;
+  right: 0;
+  text-align: center;
+  background: white;
+  padding-top: 24rpx;
+}
+.right-nav__item{
+  width: 48%;
+  float: left;
+  margin-left: 1%;
+  text-align: center;
+  padding-top: 32rpx;
+}
+.right-nav__item .item{
   width: 100%;
-  height: 12rpx;
-  background: #EEE;
+  height: auto;
+  float: left;
+}
+
+.right-nav__item .item image {
+  width: 228rpx;
+}
+
+.right-nav__item .item view {
+  color: #222222;
+  font-size: 28rpx;
 }
